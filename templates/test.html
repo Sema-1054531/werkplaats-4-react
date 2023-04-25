@@ -1,0 +1,187 @@
+<!-- index.html -->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Studentenoverzicht</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js" integrity="sha384-qKXV1j0HvMUeCBQ+QVp7JcfGl760yU08IQ+GpUo5hlbpg51QRiuqHAJz8+BrxE/N" crossorigin="anonymous"></script>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+</head>
+<body>
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="{{ url_for('overzicht_docent') }}">{{ session['firstname'] }} {{ session['lastname'] }}</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="{{ url_for('plan_bijeenkomst') }}">Bijeenkomst plannen</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="{{ url_for('studentprogress') }}">Aanmeldingen</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="{{ url_for('studentenoverzicht') }}">Overzicht studenten</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('logout') }}">Log uit</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+    <div class="container">
+        <h1>Studentenoverzicht</h1>
+        <hr>
+        <form id="add-student-form">
+            <div class="form-group">
+                <label for="studentmail">Studentmail</label>
+                <input type="email" class="form-control" id="studentmail" name="studentmail" required>
+            </div>
+            <div class="form-group">
+                <label for="firstname">Voornaam</label>
+                <input type="text" class="form-control" id="firstname" name="firstname" required>
+            </div>
+            <div class="form-group">
+                <label for="lastname">Achternaam</label>
+                <input type="text" class="form-control" id="lastname" name="lastname" required>
+            </div>
+            <div class="form-group">
+                <label for="classid">Studentklas</label>
+                <input type="text" class="form-control" id="classid" name="classid" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Toevoegen</button>
+        </form>
+        <hr>
+        <div class="form-group">
+            <label for="filter-classid">Filter op studentklas:</label>
+            <select id="filter-classid" class="form-control">
+                <option value="">Alle klassen</option>
+            </select>
+        </div>
+        <table id="student-table" class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Voornaam</th>
+                    <th>Achternaam</th>
+                    <th>Studentmail</th>
+                    <th>Studentklas</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script>
+        $(function() {
+            loadStudents();
+
+             // Laad studentklassen voor het filter
+            $.ajax({
+                url: '/get_classes',
+                type: 'GET',
+                success: function(response) {
+                    var select = $('#filter-classid');
+                    select.append('<option value="">Alle klassen</option>');
+                    for (var i = 0; i < response.length; i++) {
+                        var classid = response[i];
+                        var option = '<option value="' + classid + '">' + classid + '</option>';
+                        select.append(option);
+                    }
+                    // Update de lijst wanneer het filter verandert
+                    select.change(function() {
+                        var filterClass = $('#filter-classid').val();
+                        loadStudents(filterClass);
+                    });
+                }
+            });
+
+
+            $('#add-student-form').submit(function(event) {
+                event.preventDefault();
+                var question_id = $('#question_id').val();
+                var question_text = $('#question_text').val();
+                var question_type = $('#question_type').val();
+                var is_active = $('#is_active').val();
+                $.ajax({
+                    url: '/add_student',
+                    type: 'POST',
+                    data: {
+                        question_id: question_id,
+                        question_text: question_text,
+                        question_type: question_type,
+                        is_active: is_active
+                    },
+                    success: function(response) {
+                        $('#question_id').val('');
+                        $('#question_text').val('');
+                        $('#question_type').val('');
+                        $('#is_active').val('');
+
+                        loadStudents();
+                    }
+                });
+            });
+            $('#student-table').on('click', '.btn-delete', function() {
+                var studentid = $(this).data('studentid');
+                $.ajax({
+                    url: '/delete_student/' + studentid,
+                    type: 'DELETE',
+                    success: function(response) {
+                        loadStudents();
+                    }
+                });
+            });
+
+            function loadStudents(filterClass) {
+                $.ajax({
+                    url: '/get_students',
+                    type: 'GET',
+                    data: {
+                        classid: filterClass // add classid to filter parameter
+                    },
+                    success: function(response) {
+                        var tbody = $('#student-table tbody');
+                        tbody.empty();
+                        for (var i = 0; i < response.length; i++) {
+                            var student = response[i];
+                            var row = '<tr>' +
+                                      '<td>' + student[1] + '</td>' +
+                                      '<td>' + student[2] + '</td>' +
+                                      '<td>' + student[3] + '</td>' +
+                                      '<td>' + student[4] + '</td>' +
+                                      '<td><button class="btn btn-danger btn-delete" data-studentid="' + student[0] + '">Verwijderen</button></td>' +
+                                      '</tr>';
+                            tbody.append(row);
+                        }
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>
+Footer
+© 2023 GitHub, Inc.
+Footer navigation
+Terms
+Privacy
+Security
+Status
+Docs
+Contact GitHub
+Pricing
+API
+Training
+Blog
+About
+werkplaats-3-rest-one-piece/studentenoverzicht.html at main · Rac-Software-Development/werkplaats-3-rest-one-piece
