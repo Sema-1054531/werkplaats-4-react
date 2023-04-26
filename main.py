@@ -42,23 +42,19 @@ def testvragen():
     return render_template('test.html')
 @app.route('/add_student', methods=['POST'])
 def add_student():
-    question_id = request.form['question_id']
     question_text = request.form['question_text']
     question_type = request.form['question_type']
     is_active = request.form['is_active']
     conn = sqlite3.connect('lib/werkplaats4.db')
     c = conn.cursor()
-    c.execute("INSERT INTO question (question_id, question_text, question_type, is_active) VALUES (?, ?, ?, ?)",
-              (question_id, question_text, question_type, is_active))
+    c.execute("INSERT INTO question ( question_text, question_type, is_active) VALUES ( ?, ?, ?)",
+              (question_text, question_type, is_active))
     conn.commit()
     conn.close()
     return jsonify({'success': True})
 
-@app.route('/get_students', methods=['GET'])
-def get_students():
-    conn = sqlite3.connect('lib/databasewp3.db')
-    c = conn.cursor()
-    c.execute("SELECT * FROM students")
-    students = c.fetchall()
-    conn.close()
-    return jsonify(students)
+
+
+if __name__ == '__main__':
+    app.run(debug=True)
+    app.run()

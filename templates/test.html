@@ -13,97 +13,26 @@
 
 </head>
 <body>
-<nav class="navbar navbar-expand-lg bg-body-tertiary">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="{{ url_for('overzicht_docent') }}">{{ session['firstname'] }} {{ session['lastname'] }}</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="{{ url_for('plan_bijeenkomst') }}">Bijeenkomst plannen</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="{{ url_for('studentprogress') }}">Aanmeldingen</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="{{ url_for('studentenoverzicht') }}">Overzicht studenten</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ url_for('logout') }}">Log uit</a>
-                </li>
-            </ul>
-        </div>
-    </div>
-</nav>
 
     <div class="container">
-        <h1>Studentenoverzicht</h1>
-        <hr>
+        <h1>vragen toevoegen</h1>
         <form id="add-student-form">
             <div class="form-group">
-                <label for="studentmail">Studentmail</label>
-                <input type="email" class="form-control" id="studentmail" name="studentmail" required>
+                <label for="question_text">Vraag</label>
+                <input type="text" class="form-control" id="question_text" name="question_text" required>
             </div>
             <div class="form-group">
-                <label for="firstname">Voornaam</label>
-                <input type="text" class="form-control" id="firstname" name="firstname" required>
+                <label for="question_type">type vraag</label>
+                <input type="text" class="form-control" id="question_type" name="question_type" required>
             </div>
             <div class="form-group">
-                <label for="lastname">Achternaam</label>
-                <input type="text" class="form-control" id="lastname" name="lastname" required>
-            </div>
-            <div class="form-group">
-                <label for="classid">Studentklas</label>
-                <input type="text" class="form-control" id="classid" name="classid" required>
+                <label for="is_active">actief</label>
+                <input type="text" class="form-control" id="is_active" name="is_active" required>
             </div>
             <button type="submit" class="btn btn-primary">Toevoegen</button>
-        </form>
-        <hr>
-        <div class="form-group">
-            <label for="filter-classid">Filter op studentklas:</label>
-            <select id="filter-classid" class="form-control">
-                <option value="">Alle klassen</option>
-            </select>
-        </div>
-        <table id="student-table" class="table table-striped">
-            <thead>
-                <tr>
-                    <th>Voornaam</th>
-                    <th>Achternaam</th>
-                    <th>Studentmail</th>
-                    <th>Studentklas</th>
-                </tr>
-            </thead>
-            <tbody>
-            </tbody>
-        </table>
-    </div>
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     <script>
-        $(function() {
-            loadStudents();
 
-             // Laad studentklassen voor het filter
-            $.ajax({
-                url: '/get_classes',
-                type: 'GET',
-                success: function(response) {
-                    var select = $('#filter-classid');
-                    select.append('<option value="">Alle klassen</option>');
-                    for (var i = 0; i < response.length; i++) {
-                        var classid = response[i];
-                        var option = '<option value="' + classid + '">' + classid + '</option>';
-                        select.append(option);
-                    }
-                    // Update de lijst wanneer het filter verandert
-                    select.change(function() {
-                        var filterClass = $('#filter-classid').val();
-                        loadStudents(filterClass);
-                    });
-                }
-            });
 
 
             $('#add-student-form').submit(function(event) {
@@ -131,57 +60,7 @@
                     }
                 });
             });
-            $('#student-table').on('click', '.btn-delete', function() {
-                var studentid = $(this).data('studentid');
-                $.ajax({
-                    url: '/delete_student/' + studentid,
-                    type: 'DELETE',
-                    success: function(response) {
-                        loadStudents();
-                    }
-                });
-            });
 
-            function loadStudents(filterClass) {
-                $.ajax({
-                    url: '/get_students',
-                    type: 'GET',
-                    data: {
-                        classid: filterClass // add classid to filter parameter
-                    },
-                    success: function(response) {
-                        var tbody = $('#student-table tbody');
-                        tbody.empty();
-                        for (var i = 0; i < response.length; i++) {
-                            var student = response[i];
-                            var row = '<tr>' +
-                                      '<td>' + student[1] + '</td>' +
-                                      '<td>' + student[2] + '</td>' +
-                                      '<td>' + student[3] + '</td>' +
-                                      '<td>' + student[4] + '</td>' +
-                                      '<td><button class="btn btn-danger btn-delete" data-studentid="' + student[0] + '">Verwijderen</button></td>' +
-                                      '</tr>';
-                            tbody.append(row);
-                        }
-                    }
-                });
-            }
-        });
     </script>
-</body>
+ </body>
 </html>
-Footer
-© 2023 GitHub, Inc.
-Footer navigation
-Terms
-Privacy
-Security
-Status
-Docs
-Contact GitHub
-Pricing
-API
-Training
-Blog
-About
-werkplaats-3-rest-one-piece/studentenoverzicht.html at main · Rac-Software-Development/werkplaats-3-rest-one-piece
