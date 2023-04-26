@@ -1,4 +1,4 @@
-from flask import Flask, render_template, g
+from flask import Flask, render_template, g, request
 
 import sqlite3
 import os
@@ -8,7 +8,7 @@ app.config['DATABASE'] = os.path.join(os.getcwd(), 'lib/werkplaats4.db')
 
 LISTEN_ALL = "0.0.0.0"
 FLASK_IP = LISTEN_ALL
-FLASK_PORT = 82
+FLASK_PORT = 81
 FLASK_DEBUG = True
 
 def get_db():
@@ -34,6 +34,22 @@ def index():
     return "hallo"
 
 
+@app.route('/survey')
+def show_surveys():
+    db = get_db()
+    cur = db.cursor()
+    cur.execute('SELECT * FROM survey')
+    surveys = cur.fetchall()
+    return render_template('survey.html', surveys=surveys)
+
+@app.route('/survey/questions/<int:survey_id>')
+def show_survey_questions(survey_id):
+    db = get_db()
+    cur = db.cursor()
+    cur.execute('SELECT question.question_id, question.question_text, question.question_type, question.is_active, survey_question.question_order FROM question JOIN survey_question ON question.question_id = survey_question.question_id WHERE survey_question.survey_id = ? ORDER BY survey_question.question_order', [survey_id])
+    questions = cur.fetchall()
+    return render_template('questions.html', questions=questions)
+
 @app.route('/questions')
 def show_questions():
     db = get_db()
@@ -41,6 +57,7 @@ def show_questions():
     cur.execute('SELECT * FROM question')
     questions = cur.fetchall()
     return render_template('questions.html', questions=questions)
+
 
 if __name__ == "__main__":
     app.run(host=FLASK_IP, port=FLASK_PORT, debug=FLASK_DEBUG)
