@@ -1,0 +1,11 @@
+Start de ReactJS instantie:
+In de terminal:
+cd one_piece
+npm start
+
+Om het te stoppen, druk Ctrl + C en druk op Y.
+
+Andere links:
+https://stackoverflow.com/questions/45544145/how-stop-after-running-react-scripts-start
+https://stackoverflow.com/questions/45544145/how-stop-after-running-react-scripts-start
+https://www.geeksforgeeks.org/how-to-install-reactjs-on-windows/
