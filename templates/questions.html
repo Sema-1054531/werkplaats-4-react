@@ -2,60 +2,75 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Questions</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+    <title>Vragenlijst</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+        crossorigin="anonymous">
+    <style>
+        .table-container {
+            margin-top: 20px;
+        }
+    </style>
 </head>
 <body>
-<h1>Vragen</h1>
-<label for="survey-select">Select Survey:</label>
-<select id="survey-select" name="survey-select">
-    {% for survey in surveys %}
-    <option value="{{ survey['survey_id'] }}">{{ survey['survey_name'] }}</option>
-    {% endfor %}
-</select>
-<button class="btn btn-primary float-end">Nieuwe vraag</button>
+    <div class="container">
+        <h1>Vragenlijst</h1>
+        <div class="table-container">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Vraag</th>
+                        <th>Soort vraag</th>
+                        <th>Actief</th>
+                    </tr>
+                </thead>
+                <tbody id="question-table-body">
+                    <!-- Dynamically populate table rows here -->
+                </tbody>
+            </table>
+        </div>
+    </div>
 
-<table class="table table-striped" id="question-list">
-    <thead>
-    <tr>
-        <th>ID</th>
-        <th>Question</th>
-        <th>Type</th>
-        <th>Active</th>
-        <th></th>
-        <th></th>
-    </tr>
-    </thead>
-    <tbody>
-    {% for question in questions %}
-    <tr>
-        <td>{{ question['question_id'] }}</td>
-        <td>{{ question['question_text'] }}</td>
-        <td>{{ question['question_type'] }}</td>
-        <td>{{ question['is_active'] }}</td>
-        <td><button class="btn btn-primary">Wijzig</button></td>
-        <td><button class="btn btn-secondary">Verwijder</button></td>
-    </tr>
-    {% endfor %}
-    </tbody>
-</table>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script>
-    $(document).ready(function() {
-    $("#survey-select").change(function() {
-        var surveyId = $(this).val();
-        $.ajax({
-            url: '/survey/questions/' + surveyId,
-            type: 'GET',
-            success: function(response) {
-                $("#question-list").html(response);
-            },
-            error: function(error) {
-                console.log(error);
-            }
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- Bootstrap JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+
+    <script>
+        $(document).ready(function() {
+            // Retrieve questions and populate table on page load
+            $.ajax({
+                type: 'GET',
+                url: 'http://localhost:5000/questions',
+                success: function(response) {
+                    populateQuestionTable(response);
+                },
+                error: function(xhr, status, error) {
+                    console.error('Error getting questions:', error);
+                }
+            });
         });
-    });
-});
-</script>
+
+        function populateQuestionTable(questions) {
+            var tableBody = $('#question-table-body');
+
+            // Clear existing table rows
+            tableBody.empty();
+
+            // Add rows for each question
+            questions.forEach(function(question) {
+                var row = $('<tr></tr>');
+                row.append('<td>' + question.question_id + '</td>');
+                row.append('<td>' + question.question_text + '</td>');
+                row.append('<td>' + question.question_type + '</td>');
+                row.append('<td>' + (question.is_active ? 'Ja' : 'Nee') + '</td>');
+                tableBody.append(row);
+            });
+        }
+    </script>
 </body>
 </html>

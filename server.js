@@ -2,6 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const sqlite3 = require('sqlite3').verbose();
+const path = require('path');
 
 const app = express();
 
@@ -16,6 +17,9 @@ const db = new sqlite3.Database('lib/werkplaats4.db', (err) => {
     }
     console.log('Connected to the database.');
 });
+
+// serve static files
+app.use(express.static(path.join(__dirname, 'templates')));
 
 // routes
 app.get('/', (req, res) => {
@@ -39,7 +43,7 @@ app.post('/questions/new', (req, res) => {
 
 // get form to create new question
 app.get('/questions/new', (req, res) => {
-    res.sendFile(__dirname + '/templates/add_questions.html');
+    res.sendFile(path.join(__dirname, 'templates', 'add_questions.html'));
 });
 
 // get all questions
@@ -54,6 +58,12 @@ app.get('/questions', (req, res) => {
         }
     });
 });
+
+// serve question.html
+app.get('/question', (req, res) => {
+  res.sendFile(path.join(__dirname, 'templates', 'questions.html'));
+});
+
 
 // create a new survey
 app.post('/survey/new', (req, res) => {
@@ -72,7 +82,7 @@ app.post('/survey/new', (req, res) => {
 
 // get form to create new survey
 app.get('/survey/new', (req, res) => {
-    res.sendFile(__dirname + '/templates/add_survey.html');
+      res.sendFile(path.join(__dirname, 'templates', 'add_survey.html'));
 });
 
 // get all survey
