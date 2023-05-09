@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Maak survey</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+        crossorigin="anonymous">
+</head>
+<body>
+<h1>Maak nieuwe survey</h1>
+<form action="/survey/new" method="post" id="survey-form">
+    <div class="form-group">
+        <label for="survey-title">Titel:</label>
+        <input type="text" id="survey-title" name="survey_title">
+    </div>
+    <div class="form-group">
+        <label for="survey-description">Beschrijving:</label>
+        <textarea id="survey-description" name="survey_description"></textarea>
+    </div>
+    <div class="form-group">
+        <label for="is-anonymous">Anoniem:</label>
+        <input type="checkbox" id="is-anonymous" name="is_anonymous" value="1">
+    </div>
+    <button type="submit" class="btn btn-primary">Opslaan</button>
+</form>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+      $(document).ready(function() {
+        $('#survey-form').submit(function(event) {
+          event.preventDefault();
+          const survey = {
+            survey_title: $('#survey-title').val(),
+            survey_description: $('#survey-description').val(),
+            is_anonymous: $('#is-anonymous').is(':checked'),
+          };
+
+          // Send POST request to server
+          $.ajax({
+            type: 'POST',
+            url: 'http://localhost:5000/survey/new',
+            data: JSON.stringify(survey),
+            contentType: 'application/json',
+            success: function(response) {
+              alert('Survey created successfully!');
+              // Clear form
+              $('#survey-form')[0].reset();
+            },
+            error: function(xhr, status, error) {
+              alert('Error creating survey: ' + error);
+            }
+          });
+        });
+      });
+</script>
+</body>
+</html>

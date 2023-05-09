@@ -55,6 +55,39 @@ app.get('/questions', (req, res) => {
     });
 });
 
+// create a new survey
+app.post('/survey/new', (req, res) => {
+    const { survey_title, survey_description, is_anonymous } = req.body;
+    const sql = 'INSERT INTO survey (survey_title, survey_description, is_anonymous) VALUES (?, ?, ?)';
+    db.run(sql, [survey_title, survey_description, is_anonymous], function (err) {
+        if (err) {
+            console.log(err.message);
+            res.status(500).send('Error creating survey');
+        } else {
+            console.log(`Survey added with ID: ${this.lastID}`);
+            res.send(`Survey created with ID: ${this.lastID}`);
+        }
+    });
+});
+
+// get form to create new survey
+app.get('/survey/new', (req, res) => {
+    res.sendFile(__dirname + '/templates/add_survey.html');
+});
+
+// get all survey
+app.get('/survey', (req, res) => {
+    const sql = 'SELECT * FROM survey';
+    db.all(sql, [], (err, rows) => {
+        if (err) {
+            console.error(err.message);
+            res.status(500).send('Error getting surveys');
+        } else {
+            res.send(rows);
+        }
+    });
+});
+
 // start server
 const port = process.env.PORT || 5000;
 app.listen(port, () => {
