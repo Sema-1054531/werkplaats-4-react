@@ -2,24 +2,30 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Make vragen</title>
+    <title>Maak vragen</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+        crossorigin="anonymous">
 </head>
 <body>
 <h1>Maak nieuwe vraag</h1>
 <form action="/questions/new" method="post" id="question-form">
-    <label for="question-text">Vraag:</label>
-    <br>
-    <input type="text" id="question-text" name="question_text">
-    <label for="question-type">Soort vraag:</label>
-    <select id="question-type" name="question_type">
-        <option value="open vraag">Open vraag</option>
-        <option value="multiple choice">multiple choice</option>
-    </select>
-    <br>
-    <label for="active">Actief:</label>
-    <input type="checkbox" id="is-active" name="is_active" value="1">
-    <br>
-    <input type="submit" value="Opslaan">
+    <div class="form-group">
+        <label for="question-text">Vraag:</label>
+        <input type="text" id="question-text" name="question_text">
+    </div>
+    <div class="form-group">
+        <label for="question-type">Soort vraag:</label>
+        <select id="question-type" name="question_type">
+            <option value="open vraag">Open vraag</option>
+            <option value="multiple choice">multiple choice</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="active">Actief:</label>
+        <input type="checkbox" id="is-active" name="is_active" value="1">
+    </div>
+    <button type="submit" class="btn btn-primary">Opslaan</button>
 </form>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
