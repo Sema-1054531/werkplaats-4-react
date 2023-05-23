@@ -31,7 +31,7 @@ router.post('/answers', (req, res) => {
 });
 
 // GET all questions
-router.get('/question', (req, res) => {
+router.get('/questions', (req, res) => {
   db.all('SELECT * FROM question', (err, rows) => {
     if (err) {
       console.error(err);
@@ -43,7 +43,7 @@ router.get('/question', (req, res) => {
 });
 
 // POST new questions
-router.post('/question', (req, res) => {
+router.post('/questions', (req, res) => {
  const { question_text, question_type, is_active } = req.body;
  const query = 'INSERT INTO question ( question_text, question_type, is_active) VALUES (?, ?, ?)';
 
@@ -58,7 +58,7 @@ router.post('/question', (req, res) => {
 });
 
 // GET all surveys
-router.get('/survey', (req, res) => {
+router.get('/surveys', (req, res) => {
   db.all('SELECT * FROM survey', (err, rows) => {
     if (err) {
       console.error(err);
@@ -70,7 +70,7 @@ router.get('/survey', (req, res) => {
 });
 
 // POST new survey
-router.post('/survey', (req, res) => {
+router.post('/surveys', (req, res) => {
  const { survey_title, survey_description, is_anonymous } = req.body;
  const query = 'INSERT INTO survey ( survey_title, survey_description, is_anonymous ) VALUES ( ?, ?, ?)';
 
@@ -85,7 +85,7 @@ router.post('/survey', (req, res) => {
 });
 
 // GET all survey questions
-router.get('/survey_question', (req, res) => {
+router.get('/survey_questions', (req, res) => {
   db.all('SELECT * FROM survey_question', (err, rows) => {
     if (err) {
       console.error(err);
@@ -97,7 +97,7 @@ router.get('/survey_question', (req, res) => {
 });
 
 // POST new survey
-router.post('/survey_question', (req, res) => {
+router.post('/survey_questions', (req, res) => {
  const { survey_id, question_id, question_order } = req.body;
  const query = 'INSERT INTO survey_question ( survey_id, question_id, question_order ) VALUES ( ?, ?, ?)';
 
@@ -112,7 +112,7 @@ router.post('/survey_question', (req, res) => {
 });
 
 // GET all survey responses
-router.get('/survey_response', (req, res) => {
+router.get('/survey_responses', (req, res) => {
   db.all('SELECT * FROM survey_response', (err, rows) => {
     if (err) {
       console.error(err);
@@ -124,7 +124,7 @@ router.get('/survey_response', (req, res) => {
 });
 
 // POST new survey
-router.post('/survey_response', (req, res) => {
+router.post('/survey_responses', (req, res) => {
  const { user_id, survey_id, response_date } = req.body;
  const query = 'INSERT INTO survey_response ( user_id, survey_id, response_date ) VALUES ( ?, ?, ?)';
 
@@ -139,7 +139,7 @@ router.post('/survey_response', (req, res) => {
 });
 
 // GET all users
-router.get('/user', (req, res) => {
+router.get('/users', (req, res) => {
   db.all('SELECT * FROM user', (err, rows) => {
     if (err) {
       console.error(err);
@@ -151,7 +151,7 @@ router.get('/user', (req, res) => {
 });
 
 // POST new survey
-router.post('/user', (req, res) => {
+router.post('/users', (req, res) => {
  const { email, password, is_admin, is_team_member } = req.body;
  const query = 'INSERT INTO user ( email, password, is_admin, is_team_member ) VALUES ( ?, ?, ?, ?)';
 
