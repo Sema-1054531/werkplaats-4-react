@@ -5,6 +5,7 @@ const SurveyForm = () => {
     const [survey_title, set_survey_title] = useState('');
     const [survey_description, set_survey_description] = useState('');
     const [is_anonymous, set_is_anonymous] = useState('');
+    const [message, setMessage] = useState('');
 
     const handleSurveySubmit = async (e) => {
         e.preventDefault();
@@ -17,9 +18,11 @@ const SurveyForm = () => {
             });
 
             // Succesvol aangemaakt
+            setMessage('Enguêtte is aangemaakt');
             console.log(response.data);
         } catch (error) {
             // Fout bij het maken van de survey
+            setMessage('Er ging iets mis met het toevoegen van een nieuwe enquêtte')
             console.error(error);
         }
     };
@@ -54,6 +57,8 @@ const SurveyForm = () => {
                 />
             </div>
             <button type="submit" className="btn btn-primary mt-3">Create Survey</button>
+
+            {message && <p>{message}</p>}
       </form>
   );
 };

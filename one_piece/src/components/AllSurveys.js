@@ -35,7 +35,6 @@ const AllSurveys = () => {
                         <td>{survey.survey_title}</td>
                         <td>{survey.survey_description}</td>
                         <td>{survey.is_anonymous ? "Ja" : "Nee"}</td>
-                        <td><Link className="btn btn-secondary" to={"#"}>Aanmeldingen</Link></td>
                     </tr>
                 ))}
                 </tbody>
