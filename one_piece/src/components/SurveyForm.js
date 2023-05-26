@@ -25,26 +25,35 @@ const SurveyForm = () => {
     };
 
     return (
-        <form onSubmit={handleSurveySubmit}>
-            <input
-                type="text"
-                value={survey_title}
-                onChange={(e) => set_survey_title(e.target.value)}
-                placeholder="Survey Title"
-            />
-            <input
-                type="text"
-                value={survey_description}
-                onChange={(e) => set_survey_description(e.target.value)}
-                placeholder="Survey Description"
-            />
-            <p>Is anonymous</p>
-            <input
-                type="checkbox"
-                checked={is_anonymous}
-                onChange={(e) => set_is_anonymous(e.target.checked)}
-            />
-            <button type="submit">Create Survey</button>
+        <form onSubmit={handleSurveySubmit} className="my-4">
+            <div className="form-group">
+                <input
+                    type="text"
+                    className="form-control"
+                    value={survey_title}
+                    onChange={(e) => set_survey_title(e.target.value)}
+                    placeholder="Survey Title"
+                />
+            </div>
+            <div className="form-group">
+                <input
+                    type="text"
+                    className="form-control"
+                    value={survey_description}
+                    onChange={(e) => set_survey_description(e.target.value)}
+                    placeholder="Survey Description"
+                />
+            </div>
+            <div className="form-group">
+                <label className="form-check-label">Is anoniem </label>
+                <input
+                    type="checkbox"
+                    className="form-check-input"
+                    checked={is_anonymous}
+                    onChange={(e) => set_is_anonymous(e.target.checked)}
+                />
+            </div>
+            <button type="submit" className="btn btn-primary mt-3">Create Survey</button>
       </form>
   );
 };
