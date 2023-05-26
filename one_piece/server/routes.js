@@ -58,7 +58,7 @@ router.post('/api/questions', (req, res) => {
 });
 
 // GET all surveys
-router.get('/surveys', (req, res) => {
+router.get('/api/surveys', (req, res) => {
   db.all('SELECT * FROM survey', (err, rows) => {
     if (err) {
       console.error(err);

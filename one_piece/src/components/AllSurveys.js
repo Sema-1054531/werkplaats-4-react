@@ -31,9 +31,9 @@ const AllSurveys = () => {
                 <tbody>
                 {surveys.map(survey => (
                     <tr key={survey.id}>
-                        <td>{survey.title}</td>
-                        <td>{survey.description}</td>
-                        <td>{survey.anonymous}</td>
+                        <td>{survey.survey_title}</td>
+                        <td>{survey.survey_description}</td>
+                        <td>{survey.is_anonymous}</td>
                     </tr>
                 ))}
                 </tbody>
