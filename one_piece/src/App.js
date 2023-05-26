@@ -1,6 +1,8 @@
 // frontend
 import logo from './logo.svg';
 import './App.css';
+import Clock from './components/Clock.js';
+import currentTime from './components/Clock.js';
 
 function App() {
   return (
@@ -9,6 +11,9 @@ function App() {
         <img src={logo} className="App-logo" alt="logo" />
         <p>
           Edit <code>src/App.js</code> and save to reload. X
+          <div className="Clock">
+            <p>{currentTime}</p>
+          </div>
         </p>
         <a
           className="App-link"
