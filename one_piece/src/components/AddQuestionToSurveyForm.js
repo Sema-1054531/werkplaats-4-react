@@ -61,8 +61,8 @@ const AddQuestionToSurveyForm = () => {
           </select>
         </div>
       ))}
-      <button onClick={handleAddQuestion}>Voeg nog een vraag toe</button>
-      <button onClick={handleSaveSurvey}>Opslaan</button>
+      <button className="btn btn-primary" onClick={handleAddQuestion}>Voeg nog een vraag toe</button>
+      <button className="btn btn-secondary" onClick={handleSaveSurvey}>Opslaan</button>
     </div>
   );
 };
