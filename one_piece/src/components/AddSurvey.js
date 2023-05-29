@@ -1,21 +1,27 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import SurveyForm from './SurveyForm';
+import AddSurveyForm from './AddSurveyForm';
+
+const Header = () => {
+    return (
+        <header>
+            <h2 className="my-4">Bouw Enquêttes</h2>
+        </header>
+    );
+};
+
 
 const AddSurvey = () => {
   return (
     <div className="container">
-        <h1 className="my-4">Survey Page</h1>
-        <div className="row">
-            <div className="col">
-                <SurveyForm />
+        <Header />
+        <main>
+            <h3 className="my-4">Voeg nieuwe enquête toe</h3>
+            <div className="row">
+                <div className="col">
+                    <AddSurveyForm />
+                </div>
             </div>
-        </div>
-        <div className="row">
-            <div className="col">
-                <Link className="btn btn-primary" to={"/surveys"}>Ga naar all enquêtes</Link>
-            </div>
-        </div>
+        </main>
     </div>
   );
 };

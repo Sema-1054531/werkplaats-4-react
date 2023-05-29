@@ -69,6 +69,22 @@ router.get('/api/surveys', (req, res) => {
   });
 });
 
+// GET a specific survey by ID
+router.get('/api/surveys/:survey_id', (req, res) => {
+  const survey_id = req.params.survey_id;
+
+  db.get('SELECT * From survey WHERE survey_id = ?', [survey_id], (err, row) => {
+    if (err) {
+      console.error(err);
+      res.status(500).send('Er is een fout opgetreden bij het ophalen van de enquête.');
+    } else if (!row) {
+      res.status(404).send('Enquête niet gevonden.');
+    } else {
+      res.json(row);
+    }
+  });
+});
+
 // POST new survey
 router.post('/api/surveys', (req, res) => {
  const { survey_title, survey_description, is_anonymous } = req.body;
@@ -95,6 +111,7 @@ router.get('/api/survey_questions', (req, res) => {
     }
   });
 });
+
 
 // POST new survey
 router.post('/api/survey_questions', (req, res) => {

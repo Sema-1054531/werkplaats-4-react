@@ -1,4 +1,4 @@
-import React,{ useEffect, useState} from "react";
+import React, { useEffect, useState} from "react";
 import axios from "axios";
 import {Link} from "react-router-dom";
 
@@ -31,10 +31,12 @@ const AllSurveys = () => {
                 </thead>
                 <tbody>
                 {surveys.map(survey => (
-                    <tr key={survey.id}>
+                    <tr key={survey.survey_id}>
                         <td>{survey.survey_title}</td>
                         <td>{survey.survey_description}</td>
                         <td>{survey.is_anonymous ? "Ja" : "Nee"}</td>
+                        <td><Link to={`/surveys/${survey.survey_id}/add_question?title=${encodeURIComponent(survey.survey_title)}`}>Details</Link></td>
+                        <td><Link to="#">Verwijder</Link></td>
                     </tr>
                 ))}
                 </tbody>
