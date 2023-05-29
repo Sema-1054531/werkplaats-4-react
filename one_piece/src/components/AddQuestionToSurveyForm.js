@@ -34,6 +34,12 @@ const AddQuestionToSurveyForm = () => {
     setSelectedQuestions(updatedQuestions);
   };
 
+  const handleRemoveQuestion = (index) => {
+    const updatedQuestions = [...selectedQuestions];
+    updatedQuestions.splice(index, 1);
+    setSelectedQuestions(updatedQuestions);
+  };
+
   const handleSaveSurvey = async () => {
     try {
       // Save selectedQuestions to the database
@@ -44,13 +50,14 @@ const AddQuestionToSurveyForm = () => {
   };
 
   return (
-    <div>
+    <div className="container">
       <h4 className="my-4">Voeg vragen toe aan <b>{survey_title}</b></h4>
       {selectedQuestions.map((question, index) => (
-        <div key={index}>
+        <div key={index} className="d-flex align-items-center mb-3">
           <select
-            value={question}
-            onChange={(e) => handleQuestionChange(index, e.target.value)}
+              className="form-select flex-grow-1"
+              value={question}
+              onChange={(e) => handleQuestionChange(index, e.target.value)}
           >
             <option value="">Selecteer een vraag</option>
             {questions.map((q) => (
@@ -59,6 +66,7 @@ const AddQuestionToSurveyForm = () => {
               </option>
             ))}
           </select>
+          <button className="btn btn-secondary ms-2" onClick={() => handleRemoveQuestion(index)}>Verwijder</button>
         </div>
       ))}
       <button className="btn btn-primary" onClick={handleAddQuestion}>Voeg nog een vraag toe</button>
