@@ -182,4 +182,61 @@ router.post('/api/users', (req, res) => {
  });
 });
 
+router.post('/api/users', (req, res) => {
+  const { email, password, is_admin, is_team_member } = req.body;
+  const query = 'INSERT INTO user ( email, password, is_admin, is_team_member ) VALUES ( ?, ?, ?, ?)';
+
+  db.run(query, [ email, password, is_admin, is_team_member ], (err) => {
+    if (err) {
+      console.error(err);
+      res.status(500).send('Er is een fout opgetreden bij het toevoegen van de gebruiker.');
+    } else {
+      res.sendStatus(201);
+    }
+  });
+});
+
+// Endpoint voor het registreren van een gebruiker
+router.post('/api/register', (req, res) => {
+  const { username, password } = req.body;
+
+  // Controleer of de gebruiker al bestaat in de database
+  db.query('SELECT * FROM users WHERE username = ?', username, (err, results) => {
+    if (err) {
+      res.status(500).json({ message: 'Registration failed' });
+    } else {
+      if (results.length > 0) {
+        res.status(409).json({ message: 'User already exists' });
+      } else {
+        // Voeg de nieuwe gebruiker toe aan de database
+        db.query('INSERT INTO users (username, password) VALUES (?, ?)', [username, password], (err, result) => {
+          if (err) {
+            res.status(500).json({ message: 'Registration failed' });
+          } else {
+            res.json({ message: 'Registration successful' });
+          }
+        });
+      }
+    }
+  });
+});
+
+// Endpoint voor het inloggen van een gebruiker
+router.post('/api/login', (req, res) => {
+  const { username, password } = req.body;
+
+  // Zoek de gebruiker in de database
+  db.query('SELECT * FROM users WHERE username = ?', username, (err, results) => {
+    if (err) {
+      res.status(500).json({ message: 'Login failed' });
+    } else {
+      if (results.length > 0 && results[0].password === password) {
+        res.json({ message: 'Login successful' });
+      } else {
+        res.status(401).json({ message: 'Invalid credentials' });
+      }
+    }
+  });
+});
+
 module.exports = router;
