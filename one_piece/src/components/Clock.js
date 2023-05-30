@@ -10,6 +10,12 @@ const Clock = () => {
     }
 
     setInterval(updateTime, 1000);
+
+    return (
+        <div>
+            <p>{currentTime}</p>
+        </div>
+    )
 }
 
 export default Clock;
