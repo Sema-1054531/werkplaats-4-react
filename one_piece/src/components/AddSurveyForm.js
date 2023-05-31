@@ -12,7 +12,7 @@ const AddSurveyForm = () => {
         e.preventDefault();
 
         try {
-            const response = await axios.post('http://localhost:5000/surveys', {
+            const response = await axios.post('http://localhost:5000/surveys/new', {
                 survey_title,
                 survey_description,
                 is_anonymous
