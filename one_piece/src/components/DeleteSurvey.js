@@ -5,18 +5,20 @@ const DeleteSurvey = () => {
     const location = useLocation();
     const searchParams = new URLSearchParams(location.search);
     const survey_title = searchParams.get("title");
-  return (
-    <div className="container">
-      <h4 className="my-4">Wil je de enquêtte <b>{survey_title}</b> verwijderen?</h4>
-      <button className="btn btn-primary" onClick={deletingSurvey}>Verwijder</button>
-      <Link to={"/surveys"} className="btn btn-secondary">Ga terug</Link>
 
-    </div>
-  );
 
     const deletingSurvey = () => {
 
     };
+
+    return (
+    <div className="container">
+        <h4 className="my-4">Wil je de enquêtte <b>{survey_title}</b> verwijderen?</h4>
+        <button className="btn btn-primary" onClick={deletingSurvey}>Verwijder</button>
+        <Link to={"/surveys"} className="btn btn-secondary">Ga terug</Link>
+
+    </div>
+    );
 
 };
 
