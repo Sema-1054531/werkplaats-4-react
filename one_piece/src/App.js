@@ -16,7 +16,7 @@ const App = () => {
                 <Route path="/surveys/:survey_id/add_question" element={<AddQuestionToSurvey />} />
                 {/* Andere routes */}
                 {/* Test routes */}
-                <Route path="/surveys/delete" element={<DeleteSurvey />} />
+                <Route path="/surveys/:survey_id/delete" element={<DeleteSurvey />} />
             </Routes>
         </div>
     </Router>
