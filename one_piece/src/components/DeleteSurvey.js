@@ -1,5 +1,5 @@
 import React from 'react';
-import {Link, useLocation} from "react-router-dom";
+import DeleteSurveyForm from "./DeleteSurveyForm";
 
 const Header = () => {
     return (
@@ -9,25 +9,20 @@ const Header = () => {
     );
 };
 
+
 const DeleteSurvey = () => {
-    const location = useLocation();
-    const searchParams = new URLSearchParams(location.search);
-    const survey_title = searchParams.get("title");
-
-
-    const deletingSurvey = () => {
-
-    };
-
     return (
-    <div className="container">
-        <h4 className="my-4">Wil je de enquêtte <b>{survey_title}</b> verwijderen?</h4>
-        <button className="btn btn-primary" onClick={deletingSurvey}>Verwijder</button>
-        <Link to={"/surveys"} className="btn btn-secondary">Ga terug</Link>
-
-    </div>
+        <div className="container">
+            <Header />
+            <main>
+                <div className="row">
+                    <div className="col">
+                        <DeleteSurveyForm />
+                    </div>
+                </div>
+            </main>
+        </div>
     );
-
 };
 
 export default DeleteSurvey;
