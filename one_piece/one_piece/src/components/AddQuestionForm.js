@@ -3,7 +3,6 @@ import axios from 'axios';
 
 const AddQuestionForm = () => {
   const [question, setQuestion] = useState('');
-  const [answer, setAnswer] = useState('');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -11,12 +10,10 @@ const AddQuestionForm = () => {
     try {
       const response = await axios.post('/api/questions', {
         question,
-        answer,
       });
 
-      // Reset form fields after successful submission
+      // Reset form field after successful submission
       setQuestion('');
-      setAnswer('');
 
       console.log('Question added:', response.data);
     } catch (error) {
@@ -25,27 +22,25 @@ const AddQuestionForm = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <div>
-        <label htmlFor="question">Question:</label>
-        <input
-          type="text"
-          id="question"
-          value={question}
-          onChange={(e) => setQuestion(e.target.value)}
-        />
+    <div className="container">
+      <div className="row justify-content-center">
+        <div className="col-md-6">
+          <form onSubmit={handleSubmit}>
+            <div className="form-group">
+              <label htmlFor="question">Question:</label>
+              <input
+                type="text"
+                id="question"
+                className="form-control"
+                value={question}
+                onChange={(e) => setQuestion(e.target.value)}
+              />
+            </div>
+            <button type="submit" className="btn btn-primary">Add Question</button>
+          </form>
+        </div>
       </div>
-      <div>
-        <label htmlFor="answer">Answer:</label>
-        <input
-          type="text"
-          id="answer"
-          value={answer}
-          onChange={(e) => setAnswer(e.target.value)}
-        />
-      </div>
-      <button type="submit">Add Question</button>
-    </form>
+    </div>
   );
 };
 
