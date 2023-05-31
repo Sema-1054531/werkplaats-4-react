@@ -45,9 +45,10 @@ app.get('/surveys', (req, res) => {
         }
     });
 });
+
 app.post('/questions/new', (req, res) => {
-  // Verwerk het POST-verzoek naar /surveys
-    const { survey_title, survey_description, is_anonymous } = req.body;
+  // Verwerk het POST-verzoek naar /questions
+    const { question_text, question_type, is_active } = req.body;
 
   // Voeg enquêtegegevens toe aan de database
   db.run(
@@ -64,6 +65,7 @@ app.post('/questions/new', (req, res) => {
     }
   );
 });
+
 // get all questions
 app.get('/questions', (req, res) => {
     db.all('SELECT * FROM question WHERE is_active = 1', (err, rows) => {
