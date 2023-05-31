@@ -17,17 +17,17 @@ router.get('/api/answers', (req, res) => {
 
 // POST new answers
 router.post('/api/answers', (req, res) => {
- const { response_id, question_id, answer_text, is_anonymous, user_id } = req.body;
- const query = 'INSERT INTO answers (response_id, question_id, answer_text, is_anonymous, user_id) VALUES (?, ?, ?, ?, ?)';
+  const { response_id, question_id, answer_text, is_anonymous, user_id } = req.body;
+  const query = 'INSERT INTO answers (response_id, question_id, answer_text, is_anonymous, user_id) VALUES (?, ?, ?, ?, ?)';
 
- db.run(query, [response_id, question_id, answer_text, is_anonymous, user_id], (err) => {
-     if (err) {
-         console.error(err);
-         res.status(500).send('Er is een fout opgetreden bij het toevoegen van het antwoord.');
-     } else {
-         res.sendStatus(201);
-     }
- });
+  db.run(query, [response_id, question_id, answer_text, is_anonymous, user_id], (err) => {
+    if (err) {
+      console.error(err);
+      res.status(500).send('Er is een fout opgetreden bij het toevoegen van het antwoord.');
+    } else {
+      res.sendStatus(201);
+    }
+  });
 });
 
 // GET all questions
@@ -44,17 +44,17 @@ router.get('/api/questions', (req, res) => {
 
 // POST new questions
 router.post('/api/questions', (req, res) => {
- const { question_text, question_type, is_active } = req.body;
- const query = 'INSERT INTO question ( question_text, question_type, is_active) VALUES (?, ?, ?)';
+  const { question_text, question_type, is_active } = req.body;
+  const query = 'INSERT INTO question ( question_text, question_type, is_active) VALUES (?, ?, ?)';
 
- db.run(query, [ question_text, question_type, is_active], (err) => {
-     if (err) {
-         console.error(err);
-         res.status(500).send('Er is een fout opgetreden bij het toevoegen van de vraag.');
-     } else {
-         res.sendStatus(201);
-     }
- });
+  db.run(query, [question_text, question_type, is_active], (err) => {
+    if (err) {
+      console.error(err);
+      res.status(500).send('Er is een fout opgetreden bij het toevoegen van de vraag.');
+    } else {
+      res.sendStatus(201);
+    }
+  });
 });
 
 // GET all surveys
@@ -87,17 +87,17 @@ router.get('/api/surveys/:survey_id', (req, res) => {
 
 // POST new survey
 router.post('/api/surveys', (req, res) => {
- const { survey_title, survey_description, is_anonymous } = req.body;
- const query = 'INSERT INTO survey ( survey_title, survey_description, is_anonymous ) VALUES ( ?, ?, ?)';
+  const { survey_title, survey_description, is_anonymous } = req.body;
+  const query = 'INSERT INTO survey ( survey_title, survey_description, is_anonymous ) VALUES ( ?, ?, ?)';
 
- db.run(query, [ survey_title, survey_description, is_anonymous ], (err) => {
-     if (err) {
-         console.error(err);
-         res.status(500).send('Er is een fout opgetreden bij het toevoegen van de survey.');
-     } else {
-         res.sendStatus(201);
-     }
- });
+  db.run(query, [survey_title, survey_description, is_anonymous], (err) => {
+    if (err) {
+      console.error(err);
+      res.status(500).send('Er is een fout opgetreden bij het toevoegen van de survey.');
+    } else {
+      res.sendStatus(201);
+    }
+  });
 });
 
 // GET all survey questions
@@ -113,19 +113,19 @@ router.get('/api/survey_questions', (req, res) => {
 });
 
 
-// POST new survey
+// POST new survey question
 router.post('/api/survey_questions', (req, res) => {
- const { survey_id, question_id, question_order } = req.body;
- const query = 'INSERT INTO survey_question ( survey_id, question_id, question_order ) VALUES ( ?, ?, ?)';
+  const { survey_id, question_id, question_order } = req.body;
+  const query = 'INSERT INTO survey_question ( survey_id, question_id, question_order ) VALUES ( ?, ?, ?)';
 
- db.run(query, [ survey_id, question_id, question_order  ], (err) => {
-     if (err) {
-         console.error(err);
-         res.status(500).send('Er is een fout opgetreden bij het toevoegen van de survey vraag.');
-     } else {
-         res.sendStatus(201);
-     }
- });
+  db.run(query, [survey_id, question_id, question_order], (err) => {
+    if (err) {
+      console.error(err);
+      res.status(500).send('Er is een fout opgetreden bij het toevoegen van de survey vraag.');
+    } else {
+      res.sendStatus(201);
+    }
+  });
 });
 
 // GET all survey responses
@@ -140,19 +140,19 @@ router.get('/api/survey_responses', (req, res) => {
   });
 });
 
-// POST new survey
+// POST new survey response
 router.post('/api/survey_responses', (req, res) => {
- const { user_id, survey_id, response_date } = req.body;
- const query = 'INSERT INTO survey_response ( user_id, survey_id, response_date ) VALUES ( ?, ?, ?)';
+  const { user_id, survey_id, response_date } = req.body;
+  const query = 'INSERT INTO survey_response ( user_id, survey_id, response_date ) VALUES ( ?, ?, ?)';
 
- db.run(query, [ user_id, survey_id, response_date ], (err) => {
-     if (err) {
-         console.error(err);
-         res.status(500).send('Er is een fout opgetreden bij het toevoegen van de survey response.');
-     } else {
-         res.sendStatus(201);
-     }
- });
+  db.run(query, [user_id, survey_id, response_date], (err) => {
+    if (err) {
+      console.error(err);
+      res.status(500).send('Er is een fout opgetreden bij het toevoegen van de survey response.');
+    } else {
+      res.sendStatus(201);
+    }
+  });
 });
 
 // GET all users
@@ -160,33 +160,19 @@ router.get('/api/users', (req, res) => {
   db.all('SELECT * FROM user', (err, rows) => {
     if (err) {
       console.error(err);
-      res.status(500).send('Er is een fout opgetreden bij het ophalen van de gebruiker.');
+      res.status(500).send('Er is een fout opgetreden bij het ophalen van de gebruikers.');
     } else {
       res.json(rows);
     }
   });
 });
 
-// POST new survey
-router.post('/api/users', (req, res) => {
- const { email, password, is_admin, is_team_member } = req.body;
- const query = 'INSERT INTO user ( email, password, is_admin, is_team_member ) VALUES ( ?, ?, ?, ?)';
-
- db.run(query, [ email, password, is_admin, is_team_member ], (err) => {
-     if (err) {
-         console.error(err);
-         res.status(500).send('Er is een fout opgetreden bij het toevoegen van de gebruiker.');
-     } else {
-         res.sendStatus(201);
-     }
- });
-});
-
+// POST new user
 router.post('/api/users', (req, res) => {
   const { email, password, is_admin, is_team_member } = req.body;
   const query = 'INSERT INTO user ( email, password, is_admin, is_team_member ) VALUES ( ?, ?, ?, ?)';
 
-  db.run(query, [ email, password, is_admin, is_team_member ], (err) => {
+  db.run(query, [email, password, is_admin, is_team_member], (err) => {
     if (err) {
       console.error(err);
       res.status(500).send('Er is een fout opgetreden bij het toevoegen van de gebruiker.');
@@ -196,47 +182,9 @@ router.post('/api/users', (req, res) => {
   });
 });
 
-// Endpoint voor het registreren van een gebruiker
-router.post('/api/register', (req, res) => {
-  const { username, password } = req.body;
-
-  // Controleer of de gebruiker al bestaat in de database
-  db.query('SELECT * FROM users WHERE username = ?', username, (err, results) => {
-    if (err) {
-      res.status(500).json({ message: 'Registration failed' });
-    } else {
-      if (results.length > 0) {
-        res.status(409).json({ message: 'User already exists' });
-      } else {
-        // Voeg de nieuwe gebruiker toe aan de database
-        db.query('INSERT INTO users (username, password) VALUES (?, ?)', [username, password], (err, result) => {
-          if (err) {
-            res.status(500).json({ message: 'Registration failed' });
-          } else {
-            res.json({ message: 'Registration successful' });
-          }
-        });
-      }
-    }
-  });
-});
-
-// Endpoint voor het inloggen van een gebruiker
-router.post('/api/login', (req, res) => {
-  const { username, password } = req.body;
-
-  // Zoek de gebruiker in de database
-  db.query('SELECT * FROM users WHERE username = ?', username, (err, results) => {
-    if (err) {
-      res.status(500).json({ message: 'Login failed' });
-    } else {
-      if (results.length > 0 && results[0].password === password) {
-        res.json({ message: 'Login successful' });
-      } else {
-        res.status(401).json({ message: 'Invalid credentials' });
-      }
-    }
-  });
+// Endpoint voor niet-gevonden routes
+router.use((req, res) => {
+  res.status(404).send('Endpoint niet gevonden');
 });
 
 module.exports = router;
