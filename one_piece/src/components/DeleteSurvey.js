@@ -1,6 +1,14 @@
 import React from 'react';
 import {Link, useLocation} from "react-router-dom";
 
+const Header = () => {
+    return (
+        <header>
+            <h2 className="my-4">Bouw Enquêttes</h2>
+        </header>
+    );
+};
+
 const DeleteSurvey = () => {
     const location = useLocation();
     const searchParams = new URLSearchParams(location.search);
