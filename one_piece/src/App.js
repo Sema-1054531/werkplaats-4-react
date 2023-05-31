@@ -4,6 +4,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import AddSurvey from "./components/AddSurvey";
 import Surveys from "./components/Surveys";
 import AddQuestionToSurvey from "./components/AddQuestionToSurvey";
+import DeleteSurvey from "./components/DeleteSurvey";
 
 const App = () => {
   return (
@@ -14,6 +15,8 @@ const App = () => {
                 <Route path="/surveys/new" element={<AddSurvey />} />
                 <Route path="/surveys/:survey_id/add_question" element={<AddQuestionToSurvey />} />
                 {/* Andere routes */}
+                {/* Test routes */}
+                <Route path="/surveys/delete" element={<DeleteSurvey />} />
             </Routes>
         </div>
     </Router>
