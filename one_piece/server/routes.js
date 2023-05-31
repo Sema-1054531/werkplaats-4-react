@@ -168,7 +168,7 @@ router.get('/api/users', (req, res) => {
 });
 
 // POST new user
-router.post('/api/users', (req, res) => {
+router.post('/api/user/new', (req, res) => {
   const { email, password, is_admin, is_team_member } = req.body;
   const query = 'INSERT INTO user ( email, password, is_admin, is_team_member ) VALUES ( ?, ?, ?, ?)';
 
@@ -181,7 +181,6 @@ router.post('/api/users', (req, res) => {
     }
   });
 });
-
 // Endpoint voor niet-gevonden routes
 router.use((req, res) => {
   res.status(404).send('Endpoint niet gevonden');
