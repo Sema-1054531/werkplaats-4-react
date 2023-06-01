@@ -58,6 +58,22 @@ app.get('/questions', (req, res) => {
     });
 });
 
+// Verwijder enquête
+app.delete('/surveys/:survey_id/delete', (req, res) => {
+    const survey_id = req.query.survey_id;
+
+    db.run('DELETE FROM survey WHERE survey_id = ?', survey_id, function (err) {
+        if (err) {
+            console.error(err);
+            res.sendStatus(500).json({error: 'Er is een fout opgetreden bij het verwijderen van de enquête'});
+        }
+        else {
+            console.log('Enquête succesvol verwijderd');
+            res.sendStatus(200);
+        }
+    });
+});
+
 app.listen(port, () => {
     console.log('Server is gestart op poort', port);
 });
