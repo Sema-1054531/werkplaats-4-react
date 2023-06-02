@@ -9,8 +9,7 @@ const DeleteSurveyForm = () => {
     const survey_title = searchParams.get("title");
     const [message, setMessage] = useState('');
 
-
-    function deletingSurvey(survey_id, survey_title) {
+    const deletingSurvey = (survey_id, survey_title) => {
         const url = `/surveys/${survey_id}/delete?title=${encodeURIComponent(survey_title)}`;
         // Delete specified survey
         fetch(url, {method: 'DELETE'})
