@@ -33,8 +33,8 @@ const AllQuestions = () => {
           {questions.map(question => (
             <tr key={question.question_id}>
               <td>{question.question_text}</td>
-              <td>{question.question_type}</td>
-              <td>{question.is_active ? "Open" : "Meerkeuze"}</td>
+              <td>{question.question_type ? "Open vraag" : "Multiple choice"}  </td>
+              <td>{question.is_active ? "Ja" : "Nee"}</td>
               <td>
                 <Link to={`/questions/${question.question_id}/wijzig?title=${encodeURIComponent(question.question_text)}`}>Wijzig</Link>
               </td>

@@ -60,10 +60,10 @@ const AddQuestionForm = () => {
                     className="form-check-input"
                     id="is_not_active"
                     checked={is_active === 0}
-                    onChange={(e) => is_active(e.target.checked ? 0 : 1)}
+                    onChange={(e) => set_is_active(e.target.checked ? 0 : 1)}
                     value={is_active === 0 ? 0 : 1}
                 />
-                <label className="form-check-label" htmlFor="is_active">Nee</label>
+                <label className="form-check-label" htmlFor="is_not_active">Nee</label>
               </div>
             </div>
             <div className="form-group">
@@ -85,7 +85,7 @@ const AddQuestionForm = () => {
                     className="form-check-input"
                     id="multiple_choice"
                     checked={question_type === 0}
-                    onChange={(e) => question_type(e.target.checked ? 0 : 1)}
+                    onChange={(e) => set_question_type(e.target.checked ? 0 : 1)}
                     value={question_type === 0 ? 0 : 1}
                 />
                 <label className="form-check-label" htmlFor="multiple_choice">Multiple choice</label>
