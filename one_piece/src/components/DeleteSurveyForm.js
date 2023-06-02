@@ -8,31 +8,35 @@ const DeleteSurveyForm = () => {
     const searchParams = new URLSearchParams(location.search);
     const survey_title = searchParams.get("title");
     const [message, setMessage] = useState('');
-
-    async function deletingSurvey(survey_id, survey_title) {
-        const url = `/surveys/${survey_id}/delete?title=${encodeURIComponent(survey_title)}`;
-
+    const deletingSurvey = async(survey_id) => {
         try {
+            const url = '/surveys';
             const response = await fetch(url, {
                 method: 'DELETE',
             });
 
-        if (!response.ok) {
-            throw new Error('Er is iets misgegaan met het verwijderen van de enquêtte.');
-        }
-        const responseData = await response.json();
-        console.log('Test.');
-        }
-        catch (error) {
-        console.error(error.message);
-        setMessage('Er is iets misgegaan met het verwijderen van de enquêtte.');
-        }
-    }
+            if (!response.ok) {
+                throw new Error('Er is iets misgegaan met het verwijderen van de enquête.');
+            }
+            console.log('Enquête verwijderd.');
+            setMessage('Enquête succesvol verwijderd.');
+
+            }
+            catch (error) {
+            console.error(error.message);
+            setMessage('Er is iets misgegaan met het verwijderen van de enquête.');
+            }
+        };
+
+    //Function to handle the clicking on the delete button
+    const handleDeleteClick = (survey_id) => {
+        deletingSurvey(survey_id)
+    };
 
     return (
     <div className="container">
         <h4 className="my-4">Wil je de enquêtte <b>{survey_title}</b> verwijderen?</h4>
-        <button className="btn btn-primary" onClick={deletingSurvey('11', 'test')}>Verwijder</button>
+        <button className="btn btn-primary" onClick={handleDeleteClick(11)}>Verwijder</button>
         <Link to={"/surveys"} className="btn btn-secondary">Ga terug</Link>
 
     </div>

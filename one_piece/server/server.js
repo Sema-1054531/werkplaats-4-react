@@ -59,11 +59,11 @@ app.get('/questions', (req, res) => {
 });
 
 // Verwijder enquête
-app.delete('/surveys/:survey_id/delete/:survey_title', (req, res) => {
+app.delete('/surveys/:survey_id/delete', (req, res) => {
     const tableName = 'survey'
     const survey_id = req.query.survey_id;
     const survey_title = req.query.survey_title;
-    const condition = `survey_id = ${survey_id} AND survey_title = '${survey_title}'`;
+    const condition = `survey_id = ${survey_id}'`;
 
     const query = `DELETE FROM ${tableName} WHERE ${condition}`;
 
