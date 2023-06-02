@@ -5,6 +5,7 @@ const RegistrationForm = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [is_team_member, set_is_team_member] = useState('')
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -49,7 +50,7 @@ const RegistrationForm = () => {
           <input
             type="hidden"
             value={is_team_member=== 1}
-            onChange={(e) => is_team_member(e.target.value)}
+            onChange={(e) => set_is_team_member(e.target.value)}
           />
         </div>
         <button type="submit">Registreer</button>
