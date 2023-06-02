@@ -59,25 +59,22 @@ app.get('/questions', (req, res) => {
 });
 
 // Verwijder enquête
-app.delete('/surveys/:survey_id/delete', (req, res) => {
+app.delete('/surveys/delete/:survey_id', (req, res) => {
     const tableName = 'survey'
-    const survey_id = req.query.survey_id;
-    const survey_title = req.query.survey_title;
-    const condition = `survey_id = ${survey_id}'`;
+    const {survey_id} = req.params;
 
-    const query = `DELETE FROM ${tableName} WHERE ${condition}`;
+    const query = `DELETE FROM ${tableName} WHERE survey_id = ?`;
 
-    db.run(query, function (err) {
+    db.run(query, [survey_id], function (err) {
         if (err) {
             console.error(err.message);
-            res.status(500).json({ error: 'Er is een fout opgetreden bij het verwijderen van de enquête.' });
+            res.status(500).json({error: 'Er is een fout opgetreden bij het verwijderen van de enquête.'});
         }
         else if (this.changes === 0) {
-            res.status(404).json({ error: 'Exacte enquête niet gevonden. Is het al verwijderd?' });
+            res.status(404).json({error: 'Enquêtenemmer niet gevonden. Is het al verwijderd?'});
         }
-        else {
-            console.log('Enquête succesvol verwijderd.');
-        }
+        return res.status(200).json({message:'Enquête succesvol verwijderd.'});
+        console.log('Enquête succesvol verwijderd.');
     });
 });
 

@@ -86,13 +86,11 @@ router.get('/api/surveys/:survey_id', (req, res) => {
 });
 
 // GET a specific survey from ID for deletion
-router.post('api/surveys/:survey_id/delete', (req, res) => {
+router.post('api/surveys/delete/:survey_id', (req, res) => {
     const survey_id = req.query.survey_id;
     const survey_title = req.query.survey_title;
 
     db.get('SELECT * From survey WHERE survey_id = ?', [survey_id], (err, row) => {
-
-    db.run(query, function (err) {
         if (err) {
             console.error(err);
             res.status(500).send('Er is een fout opgetreden bij het ophalen van de enquête.');
