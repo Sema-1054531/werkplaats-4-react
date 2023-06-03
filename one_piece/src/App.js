@@ -5,6 +5,7 @@ import AddSurvey from "./components/AddSurvey";
 import Surveys from "./components/Surveys";
 import AddQuestionToSurvey from "./components/AddQuestionToSurvey";
 import Register from "./components/Register";
+import LoginForm from './components/LoginForm';
 
 const App = () => {
 
@@ -15,7 +16,7 @@ const App = () => {
               <Route path="/surveys" element={<Surveys />} />
               <Route path="/surveys/new" element={<AddSurvey />} />
               <Route path="/surveys/:survey_id/add_question" element={<AddQuestionToSurvey />} />
-              <Route path="/login" element={<login />} />/
+              <Route path="/login" element={<LoginForm />} />/
               <Route path="/register" element={<Register />} />
               {/* Andere routes */}
             </Routes>
