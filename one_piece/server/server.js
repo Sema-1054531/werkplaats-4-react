@@ -60,21 +60,21 @@ app.get('/questions', (req, res) => {
 
 // Verwijder enquête
 app.delete('/surveys/delete/:survey_id', (req, res) => {
-    const tableName = 'survey'
-    const {survey_id} = req.params;
+    const tableName = 'survey';
+    const { survey_id } = req.params;
 
     const query = `DELETE FROM ${tableName} WHERE survey_id = ?`;
 
     db.run(query, [survey_id], function (err) {
         if (err) {
             console.error(err.message);
-            res.status(500).json({error: 'Er is een fout opgetreden bij het verwijderen van de enquête.'});
+            res.status(500).json({ error: 'Er is een fout opgetreden bij het verwijderen van de enquête.' });
+        } else if (this.changes === 0) {
+            res.status(404).json({ error: 'Enquête niet gevonden. Is het al verwijderd?' });
+        } else {
+            res.status(200).json({ message: 'Enquête succesvol verwijderd.' });
+            console.log('Enquête succesvol verwijderd.');
         }
-        else if (this.changes === 0) {
-            res.status(404).json({error: 'Enquêtenemmer niet gevonden. Is het al verwijderd?'});
-        }
-        return res.status(200).json({message:'Enquête succesvol verwijderd.'});
-        console.log('Enquête succesvol verwijderd.');
     });
 });
 
