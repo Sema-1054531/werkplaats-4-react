@@ -168,11 +168,11 @@ router.get('/api/users', (req, res) => {
 });
 
 // POST new user
-router.post('/api/user/new', (req, res) => {
-  const { email, password, is_admin, is_team_member } = req.body;
-  const query = 'INSERT INTO user ( email, password, is_admin, is_team_member ) VALUES ( ?, ?, ?, ?)';
+router.post('/api/user', (req, res) => {
+  const { email, password, is_admin } = req.body;
+  const query = 'INSERT INTO user ( email, password, is_admin ) VALUES ( ?, ?, ?)';
 
-  db.run(query, [email, password, is_admin, is_team_member], (err) => {
+  db.run(query, [email, password, is_admin], (err) => {
     if (err) {
       console.error(err);
       res.status(500).send('Er is een fout opgetreden bij het toevoegen van de gebruiker.');
@@ -180,10 +180,6 @@ router.post('/api/user/new', (req, res) => {
       res.sendStatus(201);
     }
   });
-});
-// Endpoint voor niet-gevonden routes
-router.use((req, res) => {
-  res.status(404).send('Endpoint niet gevonden');
 });
 
 module.exports = router;

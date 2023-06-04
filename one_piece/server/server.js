@@ -54,26 +54,6 @@ app.post("/login", async (req, res) => {
   res.json({ message: "Inloggen succesvol" });
 });
 
-app.post('/user_new', (req, res) => {
-  // Verwerk het POST-verzoek naar /surveys
-    const { email, password,is_team_member  } = req.body;
-
-  // Voeg enquêtegegevens toe aan de database
-  db.run(
-    'INSERT INTO user (email, password,is_team_member) VALUES (?, ?, ?)',
-    [email, password,is_team_member],
-    function (err) {
-      if (err) {
-        console.error(err);
-        res.status(500).send('Fout bij het registreren');
-      } else {
-        console.log('Registratie succesvol');
-        res.send('Enquête succesvol aangemaakt');
-      }
-    }
-  );
-});
-
 
 
 
