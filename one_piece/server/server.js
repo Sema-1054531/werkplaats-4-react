@@ -70,11 +70,10 @@ app.delete('/surveys/delete/:survey_id', (req, res) => {
             console.error(err.message);
             res.status(500).json({error: 'Er is een fout opgetreden bij het verwijderen van de enquête.'});
         }
-        else if (this.changes === 0) {
-            res.status(404).json({error: 'Enquêtenemmer niet gevonden. Is het al verwijderd?'});
+        else {
+            console.log('Enquête succesvol verwijderd.');
+            res.send('Enquête succesvol verwijderd.');
         }
-        return res.status(200).json({message:'Enquête succesvol verwijderd.'});
-        console.log('Enquête succesvol verwijderd.');
     });
 });
 

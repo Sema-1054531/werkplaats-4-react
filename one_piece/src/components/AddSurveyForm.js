@@ -23,7 +23,7 @@ const AddSurveyForm = () => {
             console.log(response.data);
         } catch (error) {
             // Fout bij het maken van de survey
-            setMessage('Er ging iets mis met het toevoegen van een nieuwe enquêtte')
+            setMessage('Er ging iets mis met het toevoegen van een nieuwe enquête')
             console.error(error);
         }
     };
