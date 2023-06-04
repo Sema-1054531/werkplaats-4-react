@@ -5,10 +5,12 @@ import axios from "axios";
 const AddQuestionToSurveyForm = () => {
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
+  const survey_id = searchParams.get("survey_id")
   const survey_title = searchParams.get("title");
 
   const [questions, setQuestions] = useState([]);
   const [selectedQuestions, setSelectedQuestions] = useState([]);
+  const [message, setMessage] = useState("");
 
   // Get questions
   useEffect(() => {
@@ -25,14 +27,15 @@ const AddQuestionToSurveyForm = () => {
   };
 
   const handleAddQuestion = () => {
-    setSelectedQuestions([...selectedQuestions, ""]);
+    setSelectedQuestions([...selectedQuestions, { question_id: null }]);
   };
 
-  const handleQuestionChange = (index, value) => {
+  const handleQuestionChange = (index, question_id) => {
     const updatedQuestions = [...selectedQuestions];
-    updatedQuestions[index] = value;
+    updatedQuestions[index] = { question_id: question_id };
     setSelectedQuestions(updatedQuestions);
   };
+
 
   const handleRemoveQuestion = (index) => {
     const updatedQuestions = [...selectedQuestions];
@@ -42,36 +45,52 @@ const AddQuestionToSurveyForm = () => {
 
   const handleSaveSurvey = async () => {
     try {
-      // Save selectedQuestions to the database
-      console.log("Vragen opgeslagen:", selectedQuestions);
+      // array of survey_question object
+      const surveyQuestions = selectedQuestions.map((question) => ({
+        survey_id: survey_id,
+        question_id: question.question_id,
+      }));
+
+      // save survey questions to database
+      const response = await axios.post("http://localhost:5000/api/survey_questions", surveyQuestions);
+
+      console.log("Vragen opgeslagen: ", response.data);
+      setMessage("Enquête succesvol opgeslagen");
     } catch (error) {
       console.error(error);
+      setMessage("Er is een fout opgetreden bij het opslaan van de enquête");
     }
   };
 
   return (
-    <div className="container">
-      <h4 className="my-4">Voeg vragen toe aan <b>{survey_title}</b></h4>
-      {selectedQuestions.map((question, index) => (
-        <div key={index} className="d-flex align-items-center mb-3">
-          <select
-              className="form-select flex-grow-1"
-              value={question}
-              onChange={(e) => handleQuestionChange(index, e.target.value)}
-          >
-            <option value="">Selecteer een vraag</option>
-            {questions.map((q) => (
-              <option key={q.id} value={q.question_text}>
-                {q.question_text}
-              </option>
-            ))}
-          </select>
-          <button className="btn btn-secondary ms-2" onClick={() => handleRemoveQuestion(index)}>Verwijder</button>
-        </div>
-      ))}
-      <button className="btn btn-primary" onClick={handleAddQuestion}>Voeg nog een vraag toe</button>
-      <button className="btn btn-secondary" onClick={handleSaveSurvey}>Opslaan</button>
-    </div>
+      <form onSubmit={handleSaveSurvey} className="my-4">
+        <input
+            type="text"
+            defaultValue={survey_id}
+            disabled
+        />
+        <h4 className="my-4">Voeg vragen toe aan <b>{survey_title}</b></h4>
+        {selectedQuestions.map((question, index) => (
+            <div key={index} className="d-flex align-items-center mb-3">
+              <select
+                  className="form-select flex-grow-1"
+                  value={question.question_id}
+                  onChange={(e) => handleQuestionChange(index, e.target.value)}
+              >
+                <option value="">Selecteer een vraag</option>
+                {questions.map((q) => (
+                    <option key={q.question_id} value={q.question_id}>
+                      {q.question_text}
+                    </option>
+                ))}
+              </select>
+              <button className="btn btn-secondary ms-2" onClick={() => handleRemoveQuestion(index)}>Verwijder</button>
+            </div>
+        ))}
+        <button className="btn btn-primary" onClick={handleAddQuestion}>Voeg nog een vraag toe</button>
+        <button type="submit" className="btn btn-secondary">Opslaan</button>
+        {message && <p>{message}</p>}
+      </form>
   );
 };
 
