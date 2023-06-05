@@ -115,19 +115,26 @@ router.get('/api/survey_questions', (req, res) => {
 
 // POST new survey questions
 router.post('/api/survey_questions', (req, res) => {
-  const { survey_id, question_id } = req.body;
+  const surveyQuestions = req.body;
+
+  // Prepare the query and values
   const query = 'INSERT INTO survey_question (survey_id, question_id) VALUES (?, ?)';
+  const values = surveyQuestions.map((question) => [question.survey_id, question.question_id]);
 
-  db.run(query, [survey_id, question_id], function (err) {
-    if (err) {
-      console.error(err);
-      res.status(500).send('Er is een fout opgetreden bij het toevoegen van de enquêtevraag.');
-    } else {
-      res.sendStatus(201);
-    }
+  // Execute the query for each survey question
+  values.forEach((params) => {
+    db.run(query, params, function (err) {
+      if (err) {
+        console.error(err);
+        res.status(500).send('Er is een fout opgetreden bij het toevoegen van de enquêtevraag.');
+        return;
+      }
+    });
   });
-});
 
+  // If all queries are successful, send the response
+  res.sendStatus(201);
+});
 
 // GET all survey responses
 router.get('/api/survey_responses', (req, res) => {

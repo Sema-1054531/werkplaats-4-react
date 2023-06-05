@@ -27,15 +27,14 @@ const AddQuestionToSurveyForm = () => {
   };
 
   const handleAddQuestion = () => {
-    setSelectedQuestions([...selectedQuestions, { question_id: null }]);
+    setSelectedQuestions([...selectedQuestions, null]);
   };
 
   const handleQuestionChange = (index, question_id) => {
     const updatedQuestions = [...selectedQuestions];
-    updatedQuestions[index] = { question_id: question_id };
+    updatedQuestions[index] = question_id;
     setSelectedQuestions(updatedQuestions);
   };
-
 
   const handleRemoveQuestion = (index) => {
     const updatedQuestions = [...selectedQuestions];
@@ -45,10 +44,19 @@ const AddQuestionToSurveyForm = () => {
 
   const handleSaveSurvey = async () => {
     try {
+      // filter null values
+      const filteredQuestions = selectedQuestions.filter((question_id) => question_id !== null);
+
+      // check if survey is not empty
+      if (filteredQuestions.length === 0) {
+        setMessage("Voeg ten minste 1 vraag voordat je de enquete opslaat.");
+        return
+      }
+
       // array of survey_question object
-      const surveyQuestions = selectedQuestions.map((question) => ({
+      const surveyQuestions = filteredQuestions.map((question_id) => ({
         survey_id: survey_id,
-        question_id: question.question_id,
+        question_id: question_id,
       }));
 
       // save survey questions to database
@@ -63,34 +71,33 @@ const AddQuestionToSurveyForm = () => {
   };
 
   return (
-      <form onSubmit={handleSaveSurvey} className="my-4">
-        <input
-            type="text"
-            defaultValue={survey_id}
-            disabled
-        />
-        <h4 className="my-4">Voeg vragen toe aan <b>{survey_title}</b></h4>
-        {selectedQuestions.map((question, index) => (
-            <div key={index} className="d-flex align-items-center mb-3">
-              <select
-                  className="form-select flex-grow-1"
-                  value={question.question_id}
-                  onChange={(e) => handleQuestionChange(index, e.target.value)}
-              >
-                <option value="">Selecteer een vraag</option>
-                {questions.map((q) => (
-                    <option key={q.question_id} value={q.question_id}>
-                      {q.question_text}
-                    </option>
-                ))}
-              </select>
-              <button className="btn btn-secondary ms-2" onClick={() => handleRemoveQuestion(index)}>Verwijder</button>
-            </div>
-        ))}
-        <button className="btn btn-primary" onClick={handleAddQuestion}>Voeg nog een vraag toe</button>
-        <button type="submit" className="btn btn-secondary">Opslaan</button>
-        {message && <p>{message}</p>}
-      </form>
+    <div className="container">
+      <h4 className="my-4">Voeg vragen toe aan <b>{survey_title}</b></h4>
+      <input
+          type="hidden"
+          value={survey_id}
+      />
+      {selectedQuestions.map((question_id, index) => (
+        <div key={index} className="d-flex align-items-center mb-3">
+          <select
+            className="form-select flex-grow-1"
+            value={question_id}
+            onChange={(e) => handleQuestionChange(index, e.target.value)}
+          >
+            <option value="">Selecteer een vraag</option>
+            {questions.map((q) => (
+              <option key={q.question_id} value={q.question_id}>
+                {q.question_text}
+              </option>
+            ))}
+          </select>
+          <button className="btn btn-secondary ms-2" onClick={() => handleRemoveQuestion(index)}>Verwijder</button>
+        </div>
+      ))}
+      <button className="btn btn-primary" onClick={handleAddQuestion}>Voeg nog een vraag toe</button>
+      <button className="btn btn-secondary" onClick={handleSaveSurvey}>Opslaan</button>
+      {message && <p>{message}</p>}
+    </div>
   );
 };
 
