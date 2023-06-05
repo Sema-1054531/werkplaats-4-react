@@ -67,16 +67,16 @@ app.post('/questions/new', (req, res) => {
 });
 
 // get all questions
-app.get('/questions', (req, res) => {
-    db.all('SELECT * FROM question WHERE is_active = 1', (err, rows) => {
-        if (err) {
-            console.error(err);
-            res.status(500).json({error: 'Er is een fout opgetreden bij het ophalen van de vragen'});
-        } else {
-            res.json(rows);
-        }
-    });
-});
+//app.get('/questions', (req, res) => {
+  //  db.all('SELECT * FROM question WHERE is_active = 1', (err, rows) => {
+   //     if (err) {
+    //        console.error(err);
+     //       res.status(500).json({error: 'Er is een fout opgetreden bij het ophalen van de vragen'});
+     //   } else {
+      //      res.json(rows);
+      //  }
+  //  });
+// });
 
 app.listen(port, () => {
     console.log('Server is gestart op poort', port);
