@@ -38,7 +38,7 @@ const AllSurveys = () => {
                         <td>{survey.survey_title}</td>
                         <td>{survey.survey_description}</td>
                         <td>{survey.is_anonymous ? "Ja" : "Nee"}</td>
-                        <td><Link className="btn btn-secondary" to={`/surveys/${survey.survey_id}/add_question?survey_id=${encodeURIComponent(survey.survey_id)}&title=${encodeURIComponent(survey.survey_title)}`}>Details</Link></td>
+                        <td><Link className="btn btn-secondary" to={`/surveys/${survey.survey_id}/add_question?survey_id=${encodeURIComponent(survey.survey_id)}&title=${encodeURIComponent(survey.survey_title)}`}>Vragen toevoegen</Link></td>
                         <td><Link className="btn btn-primary" to={`/surveys/${survey.survey_id}/save?survey_id=${encodeURIComponent(survey.survey_id)}&title=${encodeURIComponent(survey.survey_title)}`}>Opslaan</Link></td>
                         <td><Link className="btn btn-danger" to="#">Verwijder</Link></td>
                     </tr>
