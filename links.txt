@@ -1,0 +1,19 @@
+Start de ReactJS instantie:
+In de terminal:
+cd one_piece
+npm start
+
+Om database te laden:
+Open een tweede terminal:
+cd server
+node server.js
+
+Om het te stoppen, in de hoofdterminal druk op Ctrl + C en druk op Y.
+
+Andere links:
+https://stackoverflow.com/questions/45544145/how-stop-after-running-react-scripts-start
+https://www.geeksforgeeks.org/how-to-install-reactjs-on-windows/
+https://developer.mozilla.org/en-US/docs/Learn/Tools_and_testing/Client-side_JavaScript_frameworks/React_getting_started
+
+Required:
+npm install express body-parser cors
