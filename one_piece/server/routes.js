@@ -100,6 +100,23 @@ router.post('/api/surveys', (req, res) => {
  });
 });
 
+//UPDATE survey
+router.put('/api/surveys/:survey_id', (req, res) => {
+   const survey_id = req.params.survey_id;
+   const { is_done } = req.body;
+
+   const query = 'UPDATE survey SET is_done = ? WHERE survey_id = ?';
+
+   db.run(query, [is_done, survey_id], function (err) {
+       if (err) {
+           console.error(err);
+           res.status(500).send('Er is een fout opgetreden bij het bijwerken van de enquête.');
+       } else {
+           res.status(200);
+       }
+   });
+});
+
 // GET all survey questions
 router.get('/api/survey_questions', (req, res) => {
   db.all('SELECT * FROM survey_question', (err, rows) => {
