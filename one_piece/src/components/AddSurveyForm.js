@@ -11,6 +11,12 @@ const AddSurveyForm = () => {
     const handleSurveySubmit = async (e) => {
         e.preventDefault();
 
+        // Check if input is empty
+        if (survey_title.trim() === '' || survey_description.trim() === '' || is_anonymous === '') {
+            setMessage('Vul alstublieft alle velden in.');
+            return;
+        }
+
         try {
             const response = await axios.post('http://localhost:5000/surveys/new', {
                 survey_title,
