@@ -374,4 +374,13 @@ router.post('/api/users', (req, res) => {
  });
 });
 
+//Route om Emails te versturen
+
+const express = require('express');
+const emailsRouter = require('./emails');
+
+const app = express();
+
+app.use('/api', emailsRouter);
+
 module.exports = router;
