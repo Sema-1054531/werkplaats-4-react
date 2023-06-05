@@ -182,25 +182,10 @@ router.post('/api/user', (req, res) => {
   });
 });
 
-<<<<<<< HEAD
-//Route om Emails te versturen
-
-const express = require('express');
-const emailsRouter = require('./emails');
-
-const app = express();
-
-app.use('/api', emailsRouter);
-
-module.exports = router;
-=======
 module.exports = router;
 
->>>>>>> Login
 const express = require('express');
 const db = require('./db/db');
-
-const router = express.Router();
 
 // GET all answers
 router.get('/api/answers', (req, res) => {
