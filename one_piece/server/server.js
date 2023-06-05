@@ -19,6 +19,7 @@ app.use('/', routes);
 app.post('/surveys/new', (req, res) => {
   const { survey_title, survey_description, is_anonymous } = req.body;
 
+  // Voeg enquêtegegevens toe aan de database
   db.run(
     'INSERT INTO survey (survey_title, survey_description, is_anonymous) VALUES (?, ?, ?)',
     [survey_title, survey_description, is_anonymous],
