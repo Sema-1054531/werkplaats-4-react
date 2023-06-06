@@ -23,7 +23,7 @@ const AddQuestionToSurvey = () => {
                 </div>
                 <div className="row">
                     <div className="col">
-                        <Link to={"/surveys"} className="btn btn-primary">Terug</Link>
+                        <Link to={"/surveys/bouw"} className="btn btn-primary">Terug</Link>
                     </div>
                 </div>
             </main>
