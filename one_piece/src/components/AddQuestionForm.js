@@ -12,7 +12,7 @@ const AddQuestionForm = () => {
     e.preventDefault();
 
     try {
-      const response = await axios.post('http://localhost:5000/questions/new', {
+      const response = await axios.post('http://localhost:5000/api/questions', {
         question_text,
         question_type,
         is_active
