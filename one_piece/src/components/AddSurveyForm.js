@@ -6,6 +6,7 @@ const AddSurveyForm = () => {
     const [survey_title, set_survey_title] = useState('');
     const [survey_description, set_survey_description] = useState('');
     const [is_anonymous, set_is_anonymous] = useState('');
+    const [is_done, set_is_done] = useState();
     const [message, setMessage] = useState('');
 
     const handleSurveySubmit = async (e) => {
@@ -74,6 +75,11 @@ const AddSurveyForm = () => {
                             <label className="form-check-label" htmlFor="is_not_anonymous">Nee</label>
                         </div>
                     </div>
+                    <input
+                        type="text"
+                        value={is_done}
+                        onChange={(e) => set_is_done(e.target.value)}
+                    />
                     <div style={{ paddingTop: '100px' }}>
                         <button type="submit" className="btn btn-primary mt-3">Create Survey</button>
                         <Link className="btn btn-secondary mt-3" to={"/surveys"}>Ga naar all enquêtes</Link>

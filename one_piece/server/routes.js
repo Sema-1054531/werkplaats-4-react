@@ -90,17 +90,34 @@ router.get('/api/surveys/:survey_id', (req, res) => {
 
 // POST new survey
 router.post('/api/surveys', (req, res) => {
-  const { survey_title, survey_description, is_anonymous } = req.body;
-  const query = 'INSERT INTO survey ( survey_title, survey_description, is_anonymous ) VALUES ( ?, ?, ?)';
+  const { survey_title, survey_description, is_anonymous, is_done } = req.body;
+  const query = 'INSERT INTO survey ( survey_title, survey_description, is_anonymous, is_done ) VALUES ( ?, ?, ?, ?)';
 
-  db.run(query, [survey_title, survey_description, is_anonymous], (err) => {
+  db.run(query, [ survey_title, survey_description, is_anonymous, is_done ], (err) => {
     if (err) {
-      console.error(err);
-      res.status(500).send('Er is een fout opgetreden bij het toevoegen van de survey.');
-    } else {
-      res.sendStatus(201);
-    }
-  });
+         console.error(err);
+         res.status(500).send('Er is een fout opgetreden bij het toevoegen van de survey.');
+     } else {
+         res.sendStatus(201);
+     }
+ });
+});
+
+//UPDATE survey
+router.put('/api/surveys/:survey_id', (req, res) => {
+   const survey_id = req.params.survey_id;
+   const { is_done } = req.body;
+
+   const query = 'UPDATE survey SET is_done = ? WHERE survey_id = ?';
+
+   db.run(query, [is_done, survey_id], function (err) {
+       if (err) {
+           console.error(err);
+           res.status(500).send('Er is een fout opgetreden bij het bijwerken van de enquête.');
+       } else {
+           res.status(200);
+       }
+   });
 });
 
 // GET all survey questions
