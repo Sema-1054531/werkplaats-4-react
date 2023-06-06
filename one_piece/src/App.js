@@ -26,6 +26,7 @@ const App = () => {
                 <Route path="/questions/new" element={<AddQuestionForm />} />
                 <Route path="/questions" element={<AllQuestions />} />
                 <Route path="/questions/wijzig/:question_id" element={<QuestionSettings />} />
+                <Route path="/surveys/:survey_id/delete" element={<DeleteSurvey />} />
               {/* Andere routes */}
             </Routes>
           </div>
