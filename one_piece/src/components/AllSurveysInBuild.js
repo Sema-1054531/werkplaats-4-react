@@ -2,7 +2,7 @@ import React, { useEffect, useState} from "react";
 import axios from "axios";
 import {Link} from "react-router-dom";
 
-const AllSurveys = () => {
+const AllSurveysInBuild = () => {
     const [surveys, setSurveys] =useState([]);
 
     useEffect(() => {
@@ -38,9 +38,9 @@ const AllSurveys = () => {
                         <td>{survey.survey_title}</td>
                         <td>{survey.survey_description}</td>
                         <td>{survey.is_anonymous ? "Ja" : "Nee"}</td>
-                        <td><Link className="btn btn-secondary" to={`/surveys/${survey.survey_id}/add_question?survey_id=${encodeURIComponent(survey.survey_id)}&title=${encodeURIComponent(survey.survey_title)}`}>Vragen toevoegen</Link></td>
-                        <td><Link className="btn btn-primary" to={`/surveys/${survey.survey_id}/save?survey_id=${encodeURIComponent(survey.survey_id)}&title=${encodeURIComponent(survey.survey_title)}`}>Opslaan</Link></td>
-                        <td><Link className="btn btn-danger" to={`/surveys/${survey.survey_id}/delete?title=${encodeURIComponent(survey.survey_title)}`}>Verwijder</Link></td>
+                        <td><Link className="btn btn-secondary" to={`/surveys/bouw/${survey.survey_id}/add_question?survey_id=${encodeURIComponent(survey.survey_id)}&title=${encodeURIComponent(survey.survey_title)}`}>Vragen toevoegen</Link></td>
+                        <td><Link className="btn btn-primary" to={`/surveys/bouw/${survey.survey_id}/save?survey_id=${encodeURIComponent(survey.survey_id)}&title=${encodeURIComponent(survey.survey_title)}`}>Opslaan</Link></td>
+                        <td><Link className="btn btn-danger" to={`/surveys/bouw/${survey.survey_id}/delete?title=${encodeURIComponent(survey.survey_title)}`}>Verwijder</Link></td>
                     </tr>
                 ))}
                 </tbody>
@@ -49,4 +49,4 @@ const AllSurveys = () => {
     );
 };
 
-export default AllSurveys;
+export default AllSurveysInBuild;

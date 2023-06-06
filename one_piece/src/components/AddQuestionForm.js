@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import {Link} from "react-router-dom";
 
 const AddQuestionForm = () => {
   const [question_text, set_question_text] = useState('');
@@ -66,6 +67,11 @@ const AddQuestionForm = () => {
                 <label className="form-check-label" htmlFor="is_not_active">Nee</label>
               </div>
             </div>
+            <div className="row">
+              <div className="col">
+
+              </div>
+            </div>
             <div className="form-group">
               <label>Soort vraag</label>
               <div className="form-check">
@@ -93,8 +99,12 @@ const AddQuestionForm = () => {
             </div>
             <div style={{ paddingTop: '100px' }}>
               <button type="submit" className="btn btn-primary mt-3">Add Question</button>
+              <Link className="btn btn-secondary mt-3" to={"/questions"}>Ga naar all vragen</Link>
               {message && <p>{message}</p>}
             </div>
+          </div>
+          <div className="col">
+
           </div>
         </div>
       </form>

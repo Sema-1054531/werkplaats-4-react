@@ -76,13 +76,13 @@ const AddSurveyForm = () => {
                         </div>
                     </div>
                     <input
-                        type="text"
+                        type="hidden"
                         value={is_done}
                         onChange={(e) => set_is_done(e.target.value)}
                     />
                     <div style={{ paddingTop: '100px' }}>
                         <button type="submit" className="btn btn-primary mt-3">Create Survey</button>
-                        <Link className="btn btn-secondary mt-3" to={"/surveys"}>Ga naar all enquêtes</Link>
+                        <Link className="btn btn-secondary mt-3" to={"/surveys/bouw"}>Ga naar all enquêtes</Link>
                         {message && <p>{message}</p>}
                     </div>
                 </div>

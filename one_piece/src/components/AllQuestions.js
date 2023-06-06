@@ -36,11 +36,8 @@ const AllQuestions = () => {
               <td>{question.question_type}</td>
               <td>{question.is_active ? "Ja" : "Nee"}</td>
               <td>
-                <Link to={`/questions/wijzig/${question.question_id}`}>Wijzig</Link>
+                <Link className="btn btn-secondary" to={`/questions/wijzig/${question.question_id}`}>Wijzig</Link>
 
-              </td>
-              <td>
-                <Link to="#">Delete</Link>
               </td>
             </tr>
           ))}

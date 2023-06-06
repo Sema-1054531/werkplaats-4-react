@@ -1,6 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import AllSurveys from './AllSurveys';
+import AddQuestionForm from "./AddQuestionForm";
 
 const Header = () => {
     return (
@@ -10,19 +9,16 @@ const Header = () => {
     );
 };
 
-const Surveys = () => {
+
+const AddSurvey = () => {
   return (
     <div className="container">
         <Header />
         <main>
+            <h3 className="my-4">Maak nieuwe vraag aan</h3>
             <div className="row">
                 <div className="col">
-                    <AllSurveys />
-                </div>
-            </div>
-            <div className="row">
-                <div className="col">
-                    <Link to={"/surveys/new"} className="btn btn-primary">Voeg nieuwe enquêtte</Link>
+                    <AddQuestionForm />
                 </div>
             </div>
         </main>
@@ -30,4 +26,4 @@ const Surveys = () => {
   );
 };
 
-export default Surveys;
+export default AddSurvey;
