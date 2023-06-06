@@ -22,18 +22,22 @@ const SaveSurvey = () => {
     try {
       await axios.put(`http://localhost:5000/api/surveys/${survey_id}`, { is_done: true });
       setMessage("Enquête succesvol opgeslagen.");
-      navigate("/surveys");
     } catch (error) {
       console.error(error);
       setMessage("Er is een fout opgetreden bij het opslaan van de enquête.");
     }
   };
 
+  const handleSaveSurveyOnClick= () => {
+    handleSaveSurvey();
+    navigate('/surveys')
+  }
+
   return (
     <div className="container">
       <h4 className="my-4">Enquête opslaan: {survey_title}</h4>
       <p>{message}</p>
-      <button className="btn btn-primary" onClick={handleSaveSurvey}>
+      <button className="btn btn-primary" onClick={handleSaveSurveyOnClick}>
         Ja, sla op
       </button>
     </div>
