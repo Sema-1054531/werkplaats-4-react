@@ -11,6 +11,7 @@ import AddQuestion from "./components/AddQuestion";
 import Questions from "./components/Questions";
 import QuestionSettings from "./components/QuestionSettings";
 import DeleteSurvey from "./components/DeleteSurvey";
+import Surveys from "./components/Surveys";
 
 const App = () => {
 
@@ -18,6 +19,7 @@ const App = () => {
         <Router>
           <div>
             <Routes>
+                <Route path="/surveys" element={<Surveys />} />
                 <Route path="/surveys/bouw" element={<SurveysInBuild />} />
                 <Route path="/surveys/bouw/new" element={<AddSurvey />} />
                 <Route path="/surveys/bouw/:survey_id/add_question" element={<AddQuestionToSurvey />} />
