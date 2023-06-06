@@ -2,7 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const path = require('path');
 const routes = require('./routes');
-const emailsentscreen = require('./emailsent');
+// const emailsentscreen = require('./emailsent');
 
 const app = express();
 const port = 5000;
@@ -14,28 +14,28 @@ const db = require('./db/db');
 app.use(cors());
 app.use(express.json());
 
-app.use('/', emailsentscreen);
+// app.use('/', emailsentscreen);
 app.use('/', routes);
 
-// Endpoint voor inloggen
-app.post("/login", async (req, res) => {
-  const { email, password } = req.body;
-
-  // Controleer of de gebruiker bestaat
-  const user = await db.getUserByEmail(email);
-  if (!user) {
-    return res.status(401).json({ error: "Gebruiker niet gevonden" });
-  }
-
-  // Controleer het wachtwoord
-  const passwordMatch = await bcrypt.compare(password, user.password);
-  if (!passwordMatch) {
-    return res.status(401).json({ error: "Ongeldig wachtwoord" });
-  }
-
-  // Gebruiker succesvol ingelogd, stuur een succesvolle respons
-  res.json({ message: "Inloggen succesvol" });
-});
+// // Endpoint voor inloggen
+// app.post("/login", async (req, res) => {
+//   const { email, password } = req.body;
+//
+//   // Controleer of de gebruiker bestaat
+//   const user = await db.getUserByEmail(email);
+//   if (!user) {
+//     return res.status(401).json({ error: "Gebruiker niet gevonden" });
+//   }
+//
+//   // Controleer het wachtwoord
+//   const passwordMatch = await bcrypt.compare(password, user.password);
+//   if (!passwordMatch) {
+//     return res.status(401).json({ error: "Ongeldig wachtwoord" });
+//   }
+//
+//   // Gebruiker succesvol ingelogd, stuur een succesvolle respons
+//   res.json({ message: "Inloggen succesvol" });
+// });
 
 app.post('/surveys/new', (req, res) => {
   // Verwerk het POST-verzoek naar /surveys
