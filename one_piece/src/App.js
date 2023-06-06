@@ -10,6 +10,7 @@ import Register from "./components/Register";
 import AddQuestionForm from "./components/AddQuestionForm";
 import AllQuestions from "./components/AllQuestions";
 import QuestionSettings from "./components/QuestionSettings";
+import DeleteSurvey from "./components/DeleteSurvey";
 
 const App = () => {
 
