@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import {Link, useLocation, useNavigate} from "react-router-dom";
 import axios from "axios";
 
 const SaveSurvey = () => {
@@ -8,7 +8,8 @@ const SaveSurvey = () => {
   const survey_id = searchParams.get("survey_id");
   const survey_title = searchParams.get("title");
   const [message, setMessage] = useState("");
-  const navigate = useNavigate();
+  const [buttonVisible, setButtonVisible] = useState(true);
+  //const navigate = useNavigate();
 
   const handleSaveSurvey = async () => {
     const confirmed = window.confirm(
@@ -26,20 +27,22 @@ const SaveSurvey = () => {
       console.error(error);
       setMessage("Er is een fout opgetreden bij het opslaan van de enquête.");
     }
+    finally {
+        setButtonVisible(false);
+    }
   };
 
   const handleSaveSurveyOnClick= () => {
     handleSaveSurvey();
-    navigate('/surveys')
+    //navigate('/surveys')
   }
 
   return (
     <div className="container">
       <h4 className="my-4">Enquête opslaan: {survey_title}</h4>
       <p>{message}</p>
-      <button className="btn btn-primary" onClick={handleSaveSurveyOnClick}>
-        Ja, sla op
-      </button>
+      <button className="btn btn-primary" onClick={handleSaveSurveyOnClick}>Sla op</button>
+      <Link to={"/surveys"} className="btn btn-secondary">Ga terug</Link>
     </div>
   );
 };

@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Link, useLocation, useParams} from "react-router-dom";
+import {Link, useLocation, useParams, useNavigate} from "react-router-dom";
 import axios from "axios";
 
 
@@ -25,6 +25,7 @@ const DeleteSurveyForm = () => {
     const survey_title = searchParams.get("title");
     const {survey_id} = useParams();
     const [message, setMessage] = useState('');
+    const navigate = useNavigate();
     const [buttonVisible, setButtonVisible] = useState(true);
 
     const handleDeleteOnClick = () => {
