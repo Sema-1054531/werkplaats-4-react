@@ -88,6 +88,25 @@ router.get('/api/surveys/:survey_id', (req, res) => {
   });
 });
 
+// GET a specific survey from ID for deletion
+router.post('/api/surveys', (req, res) => {
+    const {survey_title, survey_description, is_anonymous} = req.body;
+    const query = 'INSERT INTO survey (survey_title, survey_description, is_anonymous) VALUES ( ?, ?, ?)';
+
+    db.run(query, [survey_title, survey_description, is_anonymous], (err) => {
+        if (err) {
+            console.error(err);
+            res.status(500).send('Er is een fout opgetreden bij het ophalen van de enquête.');
+        }
+        else if (!row) {
+            res.status(404).send('Enquête niet gevonden.');
+        }
+        else {
+            res.sendStatus(201);
+        }
+    });
+});
+
 // POST new survey
 router.post('/api/surveys', (req, res) => {
   const { survey_title, survey_description, is_anonymous, is_done } = req.body;
