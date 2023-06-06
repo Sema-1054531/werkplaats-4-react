@@ -109,11 +109,11 @@ router.post('/api/surveys', (req, res) => {
 
 // POST new survey
 router.post('/api/surveys', (req, res) => {
-  const { survey_title, survey_description, is_anonymous, is_done } = req.body;
-  const query = 'INSERT INTO survey ( survey_title, survey_description, is_anonymous, is_done ) VALUES ( ?, ?, ?, ?)';
+ const { survey_title, survey_description, is_anonymous, is_done } = req.body;
+ const query = 'INSERT INTO survey ( survey_title, survey_description, is_anonymous, is_done ) VALUES ( ?, ?, ?, ?)';
 
-  db.run(query, [ survey_title, survey_description, is_anonymous, is_done ], (err) => {
-    if (err) {
+ db.run(query, [ survey_title, survey_description, is_anonymous, is_done ], (err) => {
+     if (err) {
          console.error(err);
          res.status(500).send('Er is een fout opgetreden bij het toevoegen van de survey.');
      } else {
@@ -151,19 +151,38 @@ router.get('/api/survey_questions', (req, res) => {
   });
 });
 
-// POST new survey question
-router.post('/api/survey_questions', (req, res) => {
-  const { survey_id, question_id, question_order } = req.body;
-  const query = 'INSERT INTO survey_question ( survey_id, question_id, question_order ) VALUES ( ?, ?, ?)';
-
-  db.run(query, [survey_id, question_id, question_order], (err) => {
+// GET all survey questions
+router.get('/api/survey_questions', (req, res) => {
+  db.all('SELECT * FROM survey_question', (err, rows) => {
     if (err) {
       console.error(err);
-      res.status(500).send('Er is een fout opgetreden bij het toevoegen van de survey vraag.');
+      res.status(500).send('Er is een fout opgetreden bij het ophalen van de survey vraag.');
     } else {
-      res.sendStatus(201);
+      res.json(rows);
     }
   });
+});
+
+router.post('/api/survey_questions', (req, res) => {
+  const surveyQuestions = req.body;
+
+  // Prepare the query and values
+  const query = 'INSERT INTO survey_question (survey_id, question_id) VALUES (?, ?)';
+  const values = surveyQuestions.map((question) => [question.survey_id, question.question_id]);
+
+  // Execute the query for each survey question
+  values.forEach((params) => {
+    db.run(query, params, function (err) {
+      if (err) {
+        console.error(err);
+        res.status(500).send('Er is een fout opgetreden bij het toevoegen van de enquêtevraag.');
+        return;
+      }
+    });
+  });
+
+  // If all queries are successful, send the response
+  res.sendStatus(201);
 });
 
 // GET all survey responses
