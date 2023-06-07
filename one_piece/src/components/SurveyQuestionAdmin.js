@@ -14,8 +14,10 @@ const SurveyQuestionAdmin = () => {
 
   const fetchSurveyQuestions = async () => {
     try {
-      const response = await axios.get(`http://localhost:5000/surveys/${survey_id}/survey_questions`);
+      // Fetch question name
+      const response = await axios.get(`http://localhost:5000/api/questions`);
       setSurveyQuestions(response.data);
+
     } catch (error) {
       console.error(error);
     }
