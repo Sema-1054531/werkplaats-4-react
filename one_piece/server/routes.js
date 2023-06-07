@@ -60,6 +60,20 @@ router.post('/api/questions', (req, res) => {
   });
 });
 
+// GET survey questions by survey ID
+router.get('/surveys/:surveyId/questions', (req, res) => {
+  const { surveyId } = req.params;
+
+  db.all('SELECT * FROM survey_question WHERE survey_id = ?', [surveyId], (err, rows) => {
+    if (err) {
+      console.error(err);
+      res.status(500).send('Er is een fout opgetreden bij het ophalen van de enquêtevragen.');
+    } else {
+      res.json(rows);
+    }
+  });
+});
+
 // GET all surveys
 router.get('/api/surveys', (req, res) => {
   db.all('SELECT * FROM survey', (err, rows) => {
