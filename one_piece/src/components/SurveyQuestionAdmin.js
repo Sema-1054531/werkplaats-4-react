@@ -32,9 +32,11 @@ const SurveyQuestionAdmin = () => {
   return (
     <div>
       <h4>Survey Questions for Survey ID: {survey_id}</h4>
-      <ul>
+      <ul className="list-group">
         {surveyQuestions.map((survey_question) => (
-          <li key={survey_question.question_id}>{survey_question.question_text}</li>
+          <li key={survey_question.question_id} className="list-group-item">
+            {survey_question.question_text}
+          </li>
         ))}
       </ul>
     </div>

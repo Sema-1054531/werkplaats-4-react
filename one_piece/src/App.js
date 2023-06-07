@@ -13,6 +13,7 @@ import QuestionSettings from "./components/QuestionSettings";
 import DeleteSurvey from "./components/DeleteSurvey";
 import Surveys from "./components/Surveys";
 import SurveyQuestionAdmin from "./components/SurveyQuestionAdmin";
+import Admin from "./components/Admin";
 
 const App = () => {
 
@@ -20,13 +21,14 @@ const App = () => {
         <Router>
           <div>
             <Routes>
+                <Route path="/admin" element={<Admin />} />
+                <Route path="/admin/surveys/:survey_id/survey_questions" element={<SurveyQuestionAdmin />} />
                 <Route path="/surveys" element={<Surveys />} />
                 <Route path="/surveys/bouw" element={<SurveysInBuild />} />
                 <Route path="/surveys/bouw/new" element={<AddSurvey />} />
                 <Route path="/surveys/bouw/:survey_id/add_question" element={<AddQuestionToSurvey />} />
                 <Route path="/surveys/bouw/:survey_id/save" element={<SaveSurvey />} />
                 <Route path="/surveys/bouw/:survey_id/delete" element={<DeleteSurvey />} />
-                <Route path="/surveys/:survey_id/survey_questions" element={<SurveyQuestionAdmin />} />
                 {/*<Route path="/login" element={<LoginForm />} />/*/}
                 <Route path="/register" element={<Register />} />
                 <Route path="/questions/new" element={<AddQuestion />} />
