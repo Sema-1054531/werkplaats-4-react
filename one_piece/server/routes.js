@@ -61,10 +61,10 @@ router.post('/api/questions', (req, res) => {
 });
 
 // GET survey questions by survey ID
-router.get('/surveys/:surveyId/questions', (req, res) => {
-  const { surveyId } = req.params;
+router.get('/surveys/:survey_id/survey_questions', (req, res) => {
+  const { survey_id } = req.params;
 
-  db.all('SELECT * FROM survey_question WHERE survey_id = ?', [surveyId], (err, rows) => {
+  db.all('SELECT * FROM survey_question WHERE survey_id = ?', [survey_id], (err, rows) => {
     if (err) {
       console.error(err);
       res.status(500).send('Er is een fout opgetreden bij het ophalen van de enquêtevragen.');

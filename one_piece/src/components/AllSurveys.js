@@ -37,7 +37,7 @@ const AllSurveys = () => {
               <td>{survey.survey_title}</td>
               <td>{survey.survey_description}</td>
               <td>
-                <Link to={`/surveys/${survey.survey_id}/questions`}>
+                <Link to={`/surveys/${survey.survey_id}/survey_questions`}>
                   <button className="btn btn-primary">Bekijk</button>
                 </Link>
               </td>
