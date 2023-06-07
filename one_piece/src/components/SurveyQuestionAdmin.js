@@ -4,7 +4,7 @@ import { useParams} from "react-router-dom";
 import questions from "./Questions";
 
 const SurveyQuestionAdmin = () => {
-    const { surveyId } = useParams();
+    const { survey_id } = useParams();
 
     const [surveyQuestions, setSurveyQuestions] = useState([]);
 
@@ -14,8 +14,10 @@ const SurveyQuestionAdmin = () => {
 
   const fetchSurveyQuestions = async () => {
     try {
-      const response = await axios.get(`http://localhost:5000/surveys/${surveyId}/questions`);
+      // Fetch question name
+      const response = await axios.get(`http://localhost:5000/api/questions`);
       setSurveyQuestions(response.data);
+
     } catch (error) {
       console.error(error);
     }
@@ -23,7 +25,7 @@ const SurveyQuestionAdmin = () => {
 
   return (
     <div>
-      <h4>Survey Questions for Survey ID: {surveyId}</h4>
+      <h4>Survey Questions for Survey ID: {survey_id}</h4>
       <ul>
         {surveyQuestions.map((question) => (
             <li key={question.question_id}>{question.question_text}</li>

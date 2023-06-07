@@ -26,7 +26,7 @@ const App = () => {
                 <Route path="/surveys/bouw/:survey_id/add_question" element={<AddQuestionToSurvey />} />
                 <Route path="/surveys/bouw/:survey_id/save" element={<SaveSurvey />} />
                 <Route path="/surveys/bouw/:survey_id/delete" element={<DeleteSurvey />} />
-                <Route path="/surveys/:survey_id/questions" element={<SurveyQuestionAdmin />} />
+                <Route path="/surveys/:survey_id/survey_questions" element={<SurveyQuestionAdmin />} />
                 {/*<Route path="/login" element={<LoginForm />} />/*/}
                 <Route path="/register" element={<Register />} />
                 <Route path="/questions/new" element={<AddQuestion />} />
