@@ -14,6 +14,7 @@ import DeleteSurvey from "./components/DeleteSurvey";
 import Surveys from "./components/Surveys";
 import SurveyQuestionAdmin from "./components/SurveyQuestionAdmin";
 import Admin from "./components/Admin";
+import AdminAnswer from "./components/AdminAnswer";
 
 const App = () => {
 
@@ -22,6 +23,7 @@ const App = () => {
           <div>
             <Routes>
                 <Route path="/admin" element={<Admin />} />
+                <Route path="/admin/answers/:answer_id/" element={<AdminAnswer />} />
                 <Route path="/admin/surveys/:survey_id/survey_questions" element={<SurveyQuestionAdmin />} />
                 <Route path="/surveys" element={<Surveys />} />
                 <Route path="/surveys/bouw" element={<SurveysInBuild />} />
