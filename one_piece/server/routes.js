@@ -91,6 +91,24 @@ router.post('/api/questions', (req, res) => {
   });
 });
 
+// UPDATE question is_active
+router.put('/api/questions/change/:question_id', (req, res) => {
+   const question_id = req.params.question_id;
+   const { is_active } = req.body;
+
+   const query = 'UPDATE question SET is_active = ? WHERE question_id = ?';
+
+   db.run(query, [is_active, question_id], function (err) {
+       if (err) {
+           console.error(err);
+           res.status(500).send('Er is een fout opgetreden bij het bijwerken van de vraag.');
+       } else {
+           res.status(200).send('Vraag succesvol bijgewerkt.');
+       }
+   });
+});
+
+
 // GET survey questions by survey ID
 router.get('/api/surveys/:survey_id/survey_questions', (req, res) => {
   const { survey_id } = req.params;
