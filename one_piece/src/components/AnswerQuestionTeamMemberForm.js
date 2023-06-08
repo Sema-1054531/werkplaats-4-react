@@ -5,8 +5,10 @@ import { useLocation, useParams } from 'react-router-dom';
 const AnswerQuestionTeamMember = () => {
   const [answer_text, setAnswer_text] = useState('');
   const [user_id, setUser_id] = useState('');
-  const [message, setMessage] = useState('');
   const [is_anonymous, setIs_anonymous] = useState(false);
+  const [message, setMessage] = useState('');
+  const [isAnswerEmpty, setIsAnswerEmpty] = useState(false);
+
 
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
@@ -33,6 +35,11 @@ const AnswerQuestionTeamMember = () => {
     const handleAnswerSubmit = async (e) => {
         e.preventDefault();
 
+        if (answer_text.trim() === '') {
+            setIsAnswerEmpty(true);
+            return;
+        }
+
         try {
             const response = await axios.post('http://localhost:5000/api/answers', {
                 survey_id,
@@ -57,7 +64,10 @@ const AnswerQuestionTeamMember = () => {
                 <textarea
                   rows={5}
                   value={answer_text}
-                  onChange={(e) => setAnswer_text(e.target.value)}
+                  onChange={(e) => {
+                      setAnswer_text(e.target.value);
+                      setIsAnswerEmpty(false);
+                  }}
                   placeholder="Type je antwoord in..."
                 />
             );
@@ -74,7 +84,10 @@ const AnswerQuestionTeamMember = () => {
                                     name="answer-option"
                                     value={option}
                                     checked={Number(answer_text) === option}
-                                    onChange={(e) => setAnswer_text(e.target.value)}
+                                    onChange={(e) => {
+                                        setAnswer_text(e.target.value)
+                                        setIsAnswerEmpty(false);
+                                    }}
                                 />
                                 <label htmlFor={`option-${option}`}>{option}</label>
                             </div>
@@ -124,6 +137,7 @@ const AnswerQuestionTeamMember = () => {
             <div className="my-4">
                 <button type="submit" className="btn btn-primary">Beantwoorden</button>
                 {message && <p>{message}</p>}
+                {isAnswerEmpty && <p>Vul eerst nog een antwoord in.</p>}
             </div>
         </form>
     </div>
