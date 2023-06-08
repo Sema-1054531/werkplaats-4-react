@@ -18,12 +18,27 @@ router.get('/api/answers', (req, res) => {
   });
 });
 
+router.get('/api/answers/:answer_id', (req, res) => {
+  const answer_id = req.params.answer_id;
+
+  db.get('SELECT * From answers WHERE answer_id = ?', [answer_id], (err, row) => {
+    if (err) {
+      console.error(err);
+      res.status(500).send('Er is een fout opgetreden bij het ophalen van de vragen.');
+    } else if (!row) {
+      res.status(404).send('Vragen niet gevonden.');
+    } else {
+      res.json(row);
+    }
+  });
+});
+
 // POST new answers
 router.post('/api/answers', (req, res) => {
-  const { response_id, question_id, answer_text, is_anonymous, user_id } = req.body;
-  const query = 'INSERT INTO answers (response_id, question_id, answer_text, is_anonymous, user_id) VALUES (?, ?, ?, ?, ?)';
+  const { survey_id, question_id, answer_text, user_id } = req.body;
+  const query = 'INSERT INTO answers ( survey_id, question_id, answer_text, user_id) VALUES (?, ?, ?, ?)';
 
-  db.run(query, [response_id, question_id, answer_text, is_anonymous, user_id], (err) => {
+  db.run(query, [ survey_id, question_id, answer_text, user_id], (err) => {
     if (err) {
       console.error(err);
       res.status(500).send('Er is een fout opgetreden bij het toevoegen van het antwoord.');
@@ -283,6 +298,22 @@ router.post('/api/user', (req, res) => {
       res.status(500).send('Er is een fout opgetreden bij het toevoegen van de gebruiker.');
     } else {
       res.sendStatus(201);
+    }
+  });
+});
+
+// GET a specific question by ID
+router.get('/api/answers/:answer_id', (req, res) => {
+  const answer_id = req.params.answer_id;
+
+  db.get('SELECT * From answers WHERE answer_id = ?', [answer_id], (err, row) => {
+    if (err) {
+      console.error(err);
+      res.status(500).send('Er is een fout opgetreden bij het ophalen van de vragen.');
+    } else if (!row) {
+      res.status(404).send('Vragen niet gevonden.');
+    } else {
+      res.json(row);
     }
   });
 });

@@ -26,8 +26,9 @@ const AllSurveys = () => {
       <table className="table table-striped">
         <thead className="thead-dark">
           <tr>
-            <th>Title</th>
-            <th>Description</th>
+            <th>Vraag</th>
+            <th>Beschrijving</th>
+            <th>Anoniem</th>
             <th>Bekijk vragen</th>
           </tr>
         </thead>
@@ -36,6 +37,7 @@ const AllSurveys = () => {
             <tr key={survey.survey_id}>
               <td>{survey.survey_title}</td>
               <td>{survey.survey_description}</td>
+              <td>{survey.is_anonymous ? "Ja" : "Nee"}</td>
               <td>
                 <Link to={`/surveys/${survey.survey_id}/survey_questions`}>
                   <button className="btn btn-primary">Bekijk</button>
