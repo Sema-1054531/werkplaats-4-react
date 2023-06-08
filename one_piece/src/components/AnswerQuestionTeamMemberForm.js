@@ -35,6 +35,7 @@ const AnswerQuestionTeamMember = () => {
 
         try {
             const response = await axios.post('http://localhost:5000/api/answers', {
+                survey_id,
                 question_id,
                 answer_text,
                 user_id
@@ -114,6 +115,10 @@ const AnswerQuestionTeamMember = () => {
                 <input
                     type="hidden"
                     value={question_id}
+                />
+                <input
+                    type="hidden"
+                    value={survey_id}
                 />
             </div>
             <div className="my-4">
