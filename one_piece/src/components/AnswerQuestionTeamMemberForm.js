@@ -6,6 +6,7 @@ const AnswerQuestionTeamMember = () => {
   const [answer_text, setAnswer_text] = useState('');
   const [user_id, setUser_id] = useState('');
   const [message, setMessage] = useState('');
+  const [is_anonymous, setIs_anonymous] = useState(false);
 
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
@@ -13,6 +14,21 @@ const AnswerQuestionTeamMember = () => {
   const question_type = searchParams.get('question_type');
 
   const { question_id  } = useParams();
+  const { survey_id  } = useParams();
+
+  useEffect(() => {
+      // GET is_anonymous from survey
+      const fetchSurveyAnonymity = async () => {
+          try {
+              const response = await axios.get(`http://localhost:5000/api/surveys/${survey_id}`);
+              setIs_anonymous(response.data.is_anonymous);
+          } catch (error) {
+              console.error(error);
+          }
+      };
+
+      fetchSurveyAnonymity();
+  }, [survey_id]);
 
     const handleAnswerSubmit = async (e) => {
         e.preventDefault();
@@ -70,22 +86,33 @@ const AnswerQuestionTeamMember = () => {
         }
     };
 
+    const renderAnonymous = () => {
+        if (is_anonymous === 1){
+            return <p>Deze enquete is anoniem</p>
+        } else if (is_anonymous === 0){
+            return (
+                <input
+                    type="text" // tijdelijk niet hidden!!
+                    value={user_id}
+                    onChange={(e) => setUser_id(e.target.value)}
+                    placeholder="user_id"
+                />
+            );
+        } else {
+            return null;
+        }
+    }
+
 
   return (
     <div className="container">
         <form onSubmit={handleAnswerSubmit} className="my-4">
+            {renderAnonymous()}
             <h4>{question_text}</h4>
             <div className="row">
                 {renderAnswerInput()}
-                {/*TIJDELIJK!!*/}
                 <input
-                    type="text"
-                    value={user_id}
-                    onChange={e => setUser_id(e.target.value)}
-                    placeholder="user id"
-                />
-                <input
-                    type="text"
+                    type="hidden"
                     value={question_id}
                 />
             </div>
