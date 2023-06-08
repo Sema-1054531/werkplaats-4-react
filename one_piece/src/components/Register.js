@@ -36,8 +36,8 @@ const Register = () => {
   };
 
   return (
-      <div className="row">
-        <div className="offset-lg-3 col-lg-6">
+      <div className="d-flex justify-content-center align-items-center vh-100">
+        <div className="col-lg-6">
           <form onSubmit={handleSubmit} className="container">
             <div className="card">
               <div className="card-header">
