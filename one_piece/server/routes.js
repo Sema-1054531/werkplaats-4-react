@@ -45,6 +45,22 @@ router.get('/api/questions', (req, res) => {
   });
 });
 
+// GET a specific question by ID
+router.get('/api/questions/:question_id', (req, res) => {
+  const question_id = req.params.question_id;
+
+  db.get('SELECT * From question WHERE question_id = ?', [question_id], (err, row) => {
+    if (err) {
+      console.error(err);
+      res.status(500).send('Er is een fout opgetreden bij het ophalen van de vragen.');
+    } else if (!row) {
+      res.status(404).send('Vragen niet gevonden.');
+    } else {
+      res.json(row);
+    }
+  });
+});
+
 // POST new questions
 router.post('/api/questions', (req, res) => {
   const { question_text, question_type, is_active } = req.body;
@@ -56,6 +72,38 @@ router.post('/api/questions', (req, res) => {
       res.status(500).send('Er is een fout opgetreden bij het toevoegen van de vraag.');
     } else {
       res.sendStatus(201);
+    }
+  });
+});
+
+// UPDATE question is_active
+router.put('/api/questions/change/:question_id', (req, res) => {
+   const question_id = req.params.question_id;
+   const { is_active } = req.body;
+
+   const query = 'UPDATE question SET is_active = ? WHERE question_id = ?';
+
+   db.run(query, [is_active, question_id], function (err) {
+       if (err) {
+           console.error(err);
+           res.status(500).send('Er is een fout opgetreden bij het bijwerken van de vraag.');
+       } else {
+           res.status(200).send('Vraag succesvol bijgewerkt.');
+       }
+   });
+});
+
+
+// GET survey questions by survey ID
+router.get('/api/surveys/:survey_id/survey_questions', (req, res) => {
+  const { survey_id } = req.params;
+
+  db.all('SELECT * FROM survey_question WHERE survey_id = ?', [survey_id], (err, rows) => {
+    if (err) {
+      console.error(err);
+      res.status(500).send('Er is een fout opgetreden bij het ophalen van de enquêtevragen.');
+    } else {
+      res.json(rows);
     }
   });
 });

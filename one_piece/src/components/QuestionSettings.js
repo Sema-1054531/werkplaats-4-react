@@ -3,53 +3,49 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 
 const QuestionSettings = () => {
-  const [question, setQuestion] = useState(null);
-  const { question_id } = useParams();
+  const { question_id } = useParams(); // Get the question_id from the URL
+  const [is_active, setIs_active] = useState();
+  const [message, setMessage] = useState('');
 
   useEffect(() => {
     fetchQuestion();
-  }, []);
+  }, [question_id]);
 
   const fetchQuestion = async () => {
     try {
       const response = await axios.get(`http://localhost:5000/api/questions/${question_id}`);
-      setQuestion(response.data);
+      const { is_active } = response.data;
+      setIs_active(is_active);
     } catch (error) {
       console.error(error);
+      setMessage('Er ging iets fout bij het ophalen van de vraag');
     }
   };
 
-  const handleIsActiveChange = async (e) => {
-    const { value } = e.target;
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
     try {
-      await axios.patch(`http://localhost:5000/api/questions/${question_id}`, { is_active: value });
-      setQuestion((prevQuestion) => ({
-        ...prevQuestion,
-        is_active: value,
-      }));
+      await axios.put(`http://localhost:5000/api/questions/change/${question_id}`, { is_active });
+      setMessage('Vraag is succesvol bijgewerkt');
     } catch (error) {
       console.error(error);
+      setMessage('Er ging iets fout bij het bijwerken van de vraag');
     }
   };
-
-  if (!question) {
-    return <div>Loading...</div>;
-  }
 
   return (
     <div>
-      <h2>Wijzig Vraag</h2>
-      <p>Vraag: {question.question_text}</p>
-      <p>Soort Vraag: {question.question_type}</p>
-      <p>Is Actief: {question.is_active ? "Ja" : "Nee"}</p>
-
-      <label>
-        Is Actief:
-        <select value={question.is_active} onChange={handleIsActiveChange}>
-          <option value={true}>Ja</option>
-          <option value={false}>Nee</option>
+      <h2>Wijzig</h2>
+      <form onSubmit={handleSubmit}>
+        <label>Is Actief:</label>
+        <select value={is_active} onChange={(e) => setIs_active(e.target.value)}>
+          <option value={1}>Ja</option>
+          <option value={0}>Nee</option>
         </select>
-      </label>
+        <button type="submit" className="btn btn-primary">Sla op</button>
+        {message && <p>{message}</p>}
+      </form>
     </div>
   );
 };
