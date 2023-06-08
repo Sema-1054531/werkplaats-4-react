@@ -22,7 +22,11 @@ const QuestionTeamMember = () => {
         const questionResponse = await axios.get(
           `http://localhost:5000/api/questions/${survey_question.question_id}`
         );
-        return { ...survey_question, question_text: questionResponse.data.question_text };
+        return {
+          ...survey_question,
+          question_text: questionResponse.data.question_text,
+          question_type: questionResponse.data.question_type
+        };
       });
       const resolvedQuestions = await Promise.all(questions);
       setSurveyQuestions(resolvedQuestions);
@@ -31,9 +35,6 @@ const QuestionTeamMember = () => {
     }
   };
 
-  const handleAnswerClick = (question_id) => {
-    navigate(`/surveys/${survey_id}/survey_questions/answer/${question_id}`);
-  };
 
   return (
     <div>
@@ -48,7 +49,8 @@ const QuestionTeamMember = () => {
         {surveyQuestions.map((survey_question) => (
         <tr key={survey_question.question_id}>
           <td>{survey_question.question_text}</td>
-          <td><Link className="btn btn-primary" to={`/surveys/${survey_id}/survey_questions/answer/${survey_question.question_id}?question_text=${encodeURIComponent(survey_question.question_text)}`}>Beantwoorden</Link></td>
+          {/*<td>{survey_question.question_type}</td>*/}
+          <td><Link className="btn btn-primary" to={`/surveys/${survey_id}/survey_questions/answer/${survey_question.question_id}?question_text=${encodeURIComponent(survey_question.question_text)}&&question_type=${encodeURIComponent(survey_question.question_type)}`}>Beantwoorden</Link></td>
         </tr>
         ))}
         </tbody>

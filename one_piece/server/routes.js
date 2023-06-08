@@ -35,10 +35,10 @@ router.get('/api/answers/:answer_id', (req, res) => {
 
 // POST new answers
 router.post('/api/answers', (req, res) => {
-  const { response_id, question_id, answer_text, is_anonymous, user_id } = req.body;
-  const query = 'INSERT INTO answers (response_id, question_id, answer_text, is_anonymous, user_id) VALUES (?, ?, ?, ?, ?)';
+  const { response_id, question_id, answer_text, user_id } = req.body;
+  const query = 'INSERT INTO answers (response_id, question_id, answer_text, user_id) VALUES (?, ?, ?, ?)';
 
-  db.run(query, [response_id, question_id, answer_text, is_anonymous, user_id], (err) => {
+  db.run(query, [response_id, question_id, answer_text, user_id], (err) => {
     if (err) {
       console.error(err);
       res.status(500).send('Er is een fout opgetreden bij het toevoegen van het antwoord.');
