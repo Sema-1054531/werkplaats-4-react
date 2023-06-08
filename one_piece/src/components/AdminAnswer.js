@@ -21,7 +21,7 @@ const AdminAnswer = () => {
 
       if (Array.isArray(response.data)) {
         answers = response.data;
-      } else if (typeof response.data === 'object') {
+      } else if (typeof response.data === "object") {
         answers = [response.data];
       }
 
@@ -30,7 +30,11 @@ const AdminAnswer = () => {
           const questionResponse = await axios.get(
             `http://localhost:5000/api/answers/${answer.answer_id}`
           );
-          return { ...answer, answer_text: questionResponse.data.answer_text };
+          return {
+            ...answer,
+            answer_text: questionResponse.data.answer_text,
+            user_id: answer.user_id,
+          };
         })
       );
       setSurveyQuestions(resolvedQuestions);
@@ -48,9 +52,14 @@ const AdminAnswer = () => {
             key={answer.answer_id}
             className="list-group-item d-flex justify-content-between align-items-center"
           >
-            {answer.answer_text}
+            <div>
+              <span className="fw-bold">User ID:</span> {answer.user_id}
+            </div>
+            <div>
+              <span className="fw-bold">Answer Text:</span> {answer.answer_text}
+            </div>
             <Link
-              to={`/answers/${answer.answer_id}`} // Replace with the correct URL path
+              to={`/answers/${answer.answer_id}`}
               className="btn btn-primary"
             >
               Bekijk antwoorden
