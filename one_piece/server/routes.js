@@ -18,6 +18,25 @@ router.get('/api/answers', (req, res) => {
   });
 });
 
+
+// GET all answers form survey and question
+router.get('/api/answers/:survey_id/:question_id', (req, res) => {
+  const survey_id = req.params.survey_id;
+  const question_id = req.params.question_id;
+
+  db.all('SELECT * FROM answers WHERE survey_id = ? AND question_id = ?',[survey_id, question_id], (err, rows) => {
+    if (err) {
+      console.error(err);
+      res.status(500).send('Er is een fout opgetreden bij het ophalen van de antwoorden.');
+    } else if (!rows) {
+      res.status(404).send('Vragen niet gevonden')
+    } else {
+      res.json(rows);
+    }
+  });
+});
+
+
 router.get('/api/answers/:answer_id', (req, res) => {
   const answer_id = req.params.answer_id;
 
