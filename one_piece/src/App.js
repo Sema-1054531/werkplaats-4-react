@@ -6,7 +6,7 @@ import SurveysInBuild from "./components/SurveysInBuild";
 import AddQuestionToSurvey from "./components/AddQuestionToSurvey";
 import SaveSurvey from "./components/SaveSurvey";
 import Register from "./components/Register";
-// import LoginForm from './components/LoginForm';
+import LoginForm from './components/LoginForm';
 import AddQuestion from "./components/AddQuestion";
 import Questions from "./components/Questions";
 import QuestionSettings from "./components/QuestionSettings";
@@ -20,6 +20,7 @@ const App = () => {
         <Router>
           <div>
             <Routes>
+                <Route path="/" element={<LoginForm />} />
                 <Route path="/surveys" element={<Surveys />} />
                 <Route path="/surveys/bouw" element={<SurveysInBuild />} />
                 <Route path="/surveys/bouw/new" element={<AddSurvey />} />
@@ -27,7 +28,6 @@ const App = () => {
                 <Route path="/surveys/bouw/:survey_id/save" element={<SaveSurvey />} />
                 <Route path="/surveys/bouw/:survey_id/delete" element={<DeleteSurvey />} />
                 <Route path="/surveys/:survey_id/survey_questions" element={<SurveyQuestionAdmin />} />
-                {/*<Route path="/login" element={<LoginForm />} />/*/}
                 <Route path="/register" element={<Register />} />
                 <Route path="/questions/new" element={<AddQuestion />} />
                 <Route path="/questions" element={<Questions />} />
