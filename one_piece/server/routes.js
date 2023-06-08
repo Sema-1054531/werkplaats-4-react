@@ -18,6 +18,21 @@ router.get('/api/answers', (req, res) => {
   });
 });
 
+router.get('/api/answers/:answer_id', (req, res) => {
+  const answer_id = req.params.answer_id;
+
+  db.get('SELECT * From answers WHERE answer_id = ?', [answer_id], (err, row) => {
+    if (err) {
+      console.error(err);
+      res.status(500).send('Er is een fout opgetreden bij het ophalen van de vragen.');
+    } else if (!row) {
+      res.status(404).send('Vragen niet gevonden.');
+    } else {
+      res.json(row);
+    }
+  });
+});
+
 // POST new answers
 router.post('/api/answers', (req, res) => {
   const { response_id, question_id, answer_text, is_anonymous, user_id } = req.body;
@@ -45,6 +60,22 @@ router.get('/api/questions', (req, res) => {
   });
 });
 
+// GET a specific question by ID
+router.get('/api/questions/:question_id', (req, res) => {
+  const question_id = req.params.question_id;
+
+  db.get('SELECT * From question WHERE question_id = ?', [question_id], (err, row) => {
+    if (err) {
+      console.error(err);
+      res.status(500).send('Er is een fout opgetreden bij het ophalen van de vragen.');
+    } else if (!row) {
+      res.status(404).send('Vragen niet gevonden.');
+    } else {
+      res.json(row);
+    }
+  });
+});
+
 // POST new questions
 router.post('/api/questions', (req, res) => {
   const { question_text, question_type, is_active } = req.body;
@@ -56,6 +87,20 @@ router.post('/api/questions', (req, res) => {
       res.status(500).send('Er is een fout opgetreden bij het toevoegen van de vraag.');
     } else {
       res.sendStatus(201);
+    }
+  });
+});
+
+// GET survey questions by survey ID
+router.get('/api/surveys/:survey_id/survey_questions', (req, res) => {
+  const { survey_id } = req.params;
+
+  db.all('SELECT * FROM survey_question WHERE survey_id = ?', [survey_id], (err, rows) => {
+    if (err) {
+      console.error(err);
+      res.status(500).send('Er is een fout opgetreden bij het ophalen van de enquêtevragen.');
+    } else {
+      res.json(rows);
     }
   });
 });
@@ -239,16 +284,18 @@ router.post('/api/user', (req, res) => {
   });
 });
 
-router.post('/api/answer', (req, res) => {
-  const { answer, user_id } = req.body;
-  const query = 'INSERT INTO answers (answer_text, user_id) VALUES (?, ?)';
+// GET a specific question by ID
+router.get('/api/answers/:answer_id', (req, res) => {
+  const answer_id = req.params.answer_id;
 
-  db.run(query, [answer, user_id], (err) => {
+  db.get('SELECT * From answers WHERE answer_id = ?', [answer_id], (err, row) => {
     if (err) {
       console.error(err);
-      res.status(500).send('Er is een fout opgetreden bij het toevoegen van het antwoord.');
+      res.status(500).send('Er is een fout opgetreden bij het ophalen van de vragen.');
+    } else if (!row) {
+      res.status(404).send('Vragen niet gevonden.');
     } else {
-      res.sendStatus(201);
+      res.json(row);
     }
   });
 });

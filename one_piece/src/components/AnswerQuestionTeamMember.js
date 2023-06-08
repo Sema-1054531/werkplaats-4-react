@@ -1,41 +1,38 @@
-import React, { useState } from 'react';
-import axios from 'axios';
-
-const AnswerQuestionTeamMember = () => {
-    const [answer_text,setAnswer_text]= useState('');
-    const [user_id, setUser_id]= useState('');
-    const [message,setMessage]= useState('');
-
-    const handleAnswerSubmit = async (e) => {
-        e.preventDefault();
+import React from 'react';
+import { Link } from "react-router-dom";
+import AnswerQuestionTeamMemberForm from "./AnswerQuestionTeamMemberForm";
 
 
-        try {
-            const response = await axios.post('http://localhost:5000/api/answer', {
-                answer_text,
-                user_id
-               
-            });
+const Header = () => {
+    return (
+        <header>
+            <nav className="navbar navbar-expand-lg navbar-light bg-light">
+              <div className="container">
+                <Link className="navbar-brand" to="/surveys">Enquêttes</Link>
+                <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                  <span className="navbar-toggler-icon"></span>
+                </button>
+              </div>
+            </nav>
+        </header>
+    );
+};
 
-            // Succesvol aangemaakt
-            setMessage('Vraag is beantwoord');
-            console.log(response.data);
-        } catch (error) {
-            // Fout bij het maken van de survey
-            setMessage('Er ging iets mis met het beantwoorden van de vraag')
-            console.error(error);
-        }
-    };
-
+const SurveysInBuild = () => {
   return (
-    <div>
-      <h2>Beantwoord de vraag</h2>
-      <textarea rows={5} value={answer_text} onChange={e => setAnswer_text(e.target.value)} />
-      <input type="text" value={user_id} onChange={e => setUser_id(e.target.value)} />
-      <button onClick={handleAnswerSubmit}>Beantwoorden</button>
-      {message && <p>{message}</p>}
-    </div>
+      <div>
+          <Header />
+          <div className="container">
+              <main>
+                  <div className="row">
+                      <div className="col">
+                          <AnswerQuestionTeamMemberForm />
+                      </div>
+                  </div>
+              </main>
+          </div>
+      </div>
   );
 };
 
-export default AnswerQuestionTeamMember;
+export default SurveysInBuild;
