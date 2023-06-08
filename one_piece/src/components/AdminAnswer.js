@@ -4,7 +4,7 @@ import { useParams, Link } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 const AdminAnswer = () => {
-  const { answer_id } = useParams();
+  const { survey_id, question_id } = useParams();
 
   const [surveyQuestions, setSurveyQuestions] = useState([]);
 
@@ -15,7 +15,7 @@ const AdminAnswer = () => {
   const fetchSurveyQuestions = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:5000/api/answers/${answer_id}`
+        `http://localhost:5000/api/answers/${survey_id}/${question_id}`
       );
       let answers = [];
 
@@ -26,14 +26,14 @@ const AdminAnswer = () => {
       }
 
       const resolvedQuestions = await Promise.all(
-        answers.map(async (answer) => {
+        answers.map(async (answers) => {
           const questionResponse = await axios.get(
-            `http://localhost:5000/api/answers/${answer.answer_id}`
+            `http://localhost:5000/api/answers/${answers.question_id}`
           );
           return {
-            ...answer,
+            ...answers,
             answer_text: questionResponse.data.answer_text,
-            user_id: answer.user_id,
+            user_id: answers.user_id,
           };
         })
       );
@@ -45,25 +45,19 @@ const AdminAnswer = () => {
 
   return (
     <div>
-      <h4>Answers for Answer ID: {answer_id}</h4>
+      <h4>Answers for question ID: {question_id}</h4>
       <ul className="list-group">
-        {surveyQuestions.map((answer) => (
+        {surveyQuestions.map((answers) => (
           <li
-            key={answer.answer_id}
+            key={answers.answer_id}
             className="list-group-item d-flex justify-content-between align-items-center"
           >
             <div>
-              <span className="fw-bold">User ID:</span> {answer.user_id}
+              <span className="fw-bold">User ID:</span> {answers.user_id}
             </div>
             <div>
-              <span className="fw-bold">Answer Text:</span> {answer.answer_text}
+              <span className="fw-bold">Answer Text:</span> {answers.answer_text}
             </div>
-            <Link
-              to={`/answers/${answer.answer_id}`}
-              className="btn btn-primary"
-            >
-              Bekijk antwoorden
-            </Link>
           </li>
         ))}
       </ul>

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { useParams } from "react-router-dom";
+import {Link, useParams} from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 const SurveyQuestionAdmin = () => {
@@ -37,7 +37,7 @@ const SurveyQuestionAdmin = () => {
         {surveyQuestions.map((survey_question) => (
           <li key={survey_question.question_id} className="list-group-item d-flex justify-content-between align-items-center">
             {survey_question.question_text}
-            <button className="btn btn-primary">Bekijk antwoorden</button>
+            <Link to={`/admin/surveys/${survey_id}/survey_questions/answers/${survey_question.question_id}`} className="btn btn-primary">Bekijk antwoorden</Link>
           </li>
         ))}
       </ul>

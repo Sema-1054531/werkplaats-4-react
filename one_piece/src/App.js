@@ -23,8 +23,8 @@ const App = () => {
           <div>
             <Routes>
                 <Route path="/admin" element={<Admin />} />
-                <Route path="/admin/answers/:answer_id/" element={<AdminAnswer />} />
                 <Route path="/admin/surveys/:survey_id/survey_questions" element={<SurveyQuestionAdmin />} />
+                <Route path="/admin/surveys/:survey_id/survey_questions/answers/:question_id" element={<AdminAnswer />} />
                 <Route path="/surveys" element={<Surveys />} />
                 <Route path="/surveys/bouw" element={<SurveysInBuild />} />
                 <Route path="/surveys/bouw/new" element={<AddSurvey />} />
