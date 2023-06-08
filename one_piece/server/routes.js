@@ -18,6 +18,7 @@ router.get('/api/answers', (req, res) => {
   });
 });
 
+
 // GET all answers form survey and question
 router.get('/api/answers/:survey_id/:question_id', (req, res) => {
   const survey_id = req.params.survey_id;
@@ -34,6 +35,7 @@ router.get('/api/answers/:survey_id/:question_id', (req, res) => {
     }
   });
 });
+
 
 router.get('/api/answers/:answer_id', (req, res) => {
   const answer_id = req.params.answer_id;
@@ -52,10 +54,10 @@ router.get('/api/answers/:answer_id', (req, res) => {
 
 // POST new answers
 router.post('/api/answers', (req, res) => {
-  const { response_id, question_id, answer_text, is_anonymous, user_id } = req.body;
-  const query = 'INSERT INTO answers (response_id, question_id, answer_text, is_anonymous, user_id) VALUES (?, ?, ?, ?, ?)';
+  const { survey_id, question_id, answer_text, user_id } = req.body;
+  const query = 'INSERT INTO answers ( survey_id, question_id, answer_text, user_id) VALUES (?, ?, ?, ?)';
 
-  db.run(query, [response_id, question_id, answer_text, is_anonymous, user_id], (err) => {
+  db.run(query, [ survey_id, question_id, answer_text, user_id], (err) => {
     if (err) {
       console.error(err);
       res.status(500).send('Er is een fout opgetreden bij het toevoegen van het antwoord.');
@@ -107,6 +109,24 @@ router.post('/api/questions', (req, res) => {
     }
   });
 });
+
+// UPDATE question is_active
+router.put('/api/questions/change/:question_id', (req, res) => {
+   const question_id = req.params.question_id;
+   const { is_active } = req.body;
+
+   const query = 'UPDATE question SET is_active = ? WHERE question_id = ?';
+
+   db.run(query, [is_active, question_id], function (err) {
+       if (err) {
+           console.error(err);
+           res.status(500).send('Er is een fout opgetreden bij het bijwerken van de vraag.');
+       } else {
+           res.status(200).send('Vraag succesvol bijgewerkt.');
+       }
+   });
+});
+
 
 // GET survey questions by survey ID
 router.get('/api/surveys/:survey_id/survey_questions', (req, res) => {

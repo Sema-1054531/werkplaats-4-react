@@ -12,7 +12,7 @@ const AddQuestionForm = () => {
     e.preventDefault();
 
     try {
-      const response = await axios.post('http://localhost:5000/questions/new', {
+      const response = await axios.post('http://localhost:5000/api/questions', {
         question_text,
         question_type,
         is_active
@@ -76,25 +76,25 @@ const AddQuestionForm = () => {
               <label>Soort vraag</label>
               <div className="form-check">
                 <input
-                    type="checkbox"
+                    type="radio"
                     className="form-check-input"
                     id="open_vraag"
-                    checked={question_type=== 1}
-                    onChange={(e) => set_question_type(e.target.checked ? 1 : 0)}
-                    value={question_type === 1 ? 1 : 0}
+                    checked={question_type === "openvraag"}
+                    onChange={(e) => set_question_type("openvraag")}
+                    value="openvraag"
                 />
                 <label className="form-check-label" htmlFor="open_vraag">Open vraag</label>
               </div>
               <div className="form-check">
                 <input
-                    type="checkbox"
+                    type="radio"
                     className="form-check-input"
                     id="multiple_choice"
-                    checked={question_type === 0}
-                    onChange={(e) => set_question_type(e.target.checked ? 0 : 1)}
-                    value={question_type === 0 ? 0 : 1}
+                    checked={question_type === "meerkeuzevraag"}
+                    onChange={(e) => set_question_type("meerkeuzevraag")}
+                    value="meerkeuzevraag"
                 />
-                <label className="form-check-label" htmlFor="multiple_choice">Multiple choice</label>
+                <label className="form-check-label" htmlFor="multiple_choice">Meerkeuzevraag</label>
               </div>
             </div>
             <div style={{ paddingTop: '100px' }}>

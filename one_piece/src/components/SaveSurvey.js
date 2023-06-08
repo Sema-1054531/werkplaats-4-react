@@ -37,13 +37,39 @@ const SaveSurvey = () => {
     //navigate('/surveys')
   }
 
+  const Header= () => {
+    return(
+        <nav className="navbar navbar-expand-lg navbar-light bg-light">
+              <div className="container">
+                <Link className="navbar-brand" to="/surveys">Enquêttes</Link>
+                <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                  <span className="navbar-toggler-icon"></span>
+                </button>
+                <div className="collapse navbar-collapse" id="navbarNav">
+                  <ul className="navbar-nav">
+                    <li className="nav-item">
+                      <Link className="nav-link" to="/surveys/bouw">Bouw enquêttes</Link>
+                    </li>
+                    <li className="nav-item">
+                      <Link className="nav-link" to="/questions">Bouw vragen</Link>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+        </nav>
+    );
+  };
+
   return (
-    <div className="container">
-      <h4 className="my-4">Enquête opslaan: {survey_title}</h4>
-      <p>{message}</p>
-      <button className="btn btn-primary" onClick={handleSaveSurveyOnClick}>Sla op</button>
-      <Link to={"/surveys"} className="btn btn-secondary">Ga terug</Link>
-    </div>
+      <div>
+        <Header />
+        <div className="container">
+          <h4 className="my-4">Enquête opslaan: {survey_title}</h4>
+          <p>{message}</p>
+          <button className="btn btn-primary" onClick={handleSaveSurveyOnClick}>Sla op</button>
+          <Link to={"/surveys"} className="btn btn-secondary">Ga terug</Link>
+        </div>
+      </div>
   );
 };
 
