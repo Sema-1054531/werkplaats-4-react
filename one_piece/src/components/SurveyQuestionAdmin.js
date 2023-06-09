@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { useParams } from "react-router-dom";
+import {Link, useParams} from "react-router-dom";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 const SurveyQuestionAdmin = () => {
   const { survey_id } = useParams();
@@ -32,9 +33,12 @@ const SurveyQuestionAdmin = () => {
   return (
     <div>
       <h4>Survey Questions for Survey ID: {survey_id}</h4>
-      <ul>
+      <ul className="list-group">
         {surveyQuestions.map((survey_question) => (
-          <li key={survey_question.question_id}>{survey_question.question_text}</li>
+          <li key={survey_question.question_id} className="list-group-item d-flex justify-content-between align-items-center">
+            {survey_question.question_text}
+            <Link to={`/admin/surveys/${survey_id}/survey_questions/answers/${survey_question.question_id}`} className="btn btn-primary">Bekijk antwoorden</Link>
+          </li>
         ))}
       </ul>
     </div>

@@ -14,6 +14,8 @@ import QuestionSettings from "./components/QuestionSettings";
 import DeleteSurvey from "./components/DeleteSurvey";
 import Surveys from "./components/Surveys";
 import SurveyQuestionAdmin from "./components/SurveyQuestionAdmin";
+import Admin from "./components/Admin";
+import AdminAnswer from "./components/AdminAnswer";
 import QuestionTeamMember from "./components/QuestionTeamMember";
 import AnswerQuestionTeamMember from "./components/AnswerQuestionTeamMember";
 
@@ -24,6 +26,9 @@ const App = () => {
           <div>
             <Routes>
                 <Route path="/" element={<LoginForm />} />
+                <Route path="/admin" element={<Admin />} />
+                <Route path="/admin/surveys/:survey_id/survey_questions" element={<SurveyQuestionAdmin />} />
+                <Route path="/admin/surveys/:survey_id/survey_questions/answers/:question_id" element={<AdminAnswer />} />
                 <Route path="/surveys" element={<Surveys />} />
                 <Route path="/surveys/bouw" element={<SurveysInBuild />} />
                 <Route path="/surveys/bouw/new" element={<AddSurvey />} />
