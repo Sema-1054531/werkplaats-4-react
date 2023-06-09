@@ -63,3 +63,7 @@ Bouw vragen
 >> Je geeft een titel, actief of non-actief en de vraagtype.
 >> Vervolgens klik je op de 'Vraag toevoegen' knop om de vraag aan te maken.
 ```
+ Bronnen
+ ```
+> ChatGPT Bij voornamelijk ERRORS
+```
