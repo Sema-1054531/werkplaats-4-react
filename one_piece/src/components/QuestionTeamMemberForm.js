@@ -55,6 +55,7 @@ const QuestionTeamMember = () => {
         ))}
         </tbody>
       </table>
+      <Link className="btn btn-secondary mt-3" to={"/surveys"}>Terug</Link>
     </div>
   );
 };

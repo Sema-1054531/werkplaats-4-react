@@ -8,8 +8,7 @@ const SaveSurvey = () => {
   const survey_id = searchParams.get("survey_id");
   const survey_title = searchParams.get("title");
   const [message, setMessage] = useState("");
-  const [buttonVisible, setButtonVisible] = useState(true);
-  //const navigate = useNavigate();
+  const navigate = useNavigate();
 
   const handleSaveSurvey = async () => {
     const confirmed = window.confirm(
@@ -27,14 +26,11 @@ const SaveSurvey = () => {
       console.error(error);
       setMessage("Er is een fout opgetreden bij het opslaan van de enquête.");
     }
-    finally {
-        setButtonVisible(false);
-    }
   };
 
   const handleSaveSurveyOnClick= () => {
     handleSaveSurvey();
-    // navigate('/surveys')
+    navigate('/surveys')
   }
 
   const Header= () => {
@@ -66,8 +62,8 @@ const SaveSurvey = () => {
         <div className="container">
           <h4 className="my-4">Enquête opslaan: {survey_title}</h4>
           <p>{message}</p>
-          { buttonVisible && (<button className="btn btn-primary" onClick={handleSaveSurveyOnClick}>Sla op</button>)}
-          <Link to={"/surveys"} className="btn btn-secondary">Ga terug</Link>
+          <button className="btn btn-primary" onClick={handleSaveSurveyOnClick}>Opslaan</button>
+          <Link to={"/surveys/bouw"} className="btn btn-secondary">Terug</Link>
         </div>
       </div>
   );

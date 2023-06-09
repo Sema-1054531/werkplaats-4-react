@@ -98,8 +98,8 @@ const AddQuestionForm = () => {
               </div>
             </div>
             <div style={{ paddingTop: '100px' }}>
-              <button type="submit" className="btn btn-primary mt-3">Add Question</button>
-              <Link className="btn btn-secondary mt-3" to={"/questions"}>Ga naar all vragen</Link>
+              <button type="submit" className="btn btn-primary mt-3">Vraag toevoegen</button>
+              <Link className="btn btn-secondary mt-3" to={"/questions"}>Terug</Link>
               {message && <p>{message}</p>}
             </div>
           </div>

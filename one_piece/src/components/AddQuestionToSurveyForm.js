@@ -94,7 +94,7 @@ const AddQuestionToSurveyForm = () => {
           <button className="btn btn-secondary ms-2" onClick={() => handleRemoveQuestion(index)}>Verwijder</button>
         </div>
       ))}
-      <button className="btn btn-secondary" onClick={handleAddQuestion}>Voeg nog een vraag toe</button>
+      <button className="btn btn-secondary" onClick={handleAddQuestion}>Vraag toevoegen</button>
       <button className="btn btn-primary" onClick={handleSaveSurvey}>Opslaan</button>
       {message && <p>{message}</p>}
     </div>

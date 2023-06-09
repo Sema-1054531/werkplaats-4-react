@@ -18,6 +18,7 @@ import Admin from "./components/Admin";
 import AdminAnswer from "./components/AdminAnswer";
 import QuestionTeamMember from "./components/QuestionTeamMember";
 import AnswerQuestionTeamMember from "./components/AnswerQuestionTeamMember";
+import HomePage from "./components/HomePage";
 
 const App = () => {
 
@@ -26,6 +27,7 @@ const App = () => {
           <div>
             <Routes>
                 <Route path="/" element={<LoginForm />} />
+                <Route path="/home" element={<HomePage />} />
                 <Route path="/admin" element={<Admin />} />
                 <Route path="/admin/surveys/:survey_id/survey_questions" element={<SurveyQuestionAdmin />} />
                 <Route path="/admin/surveys/:survey_id/survey_questions/answers/:question_id" element={<AdminAnswer />} />

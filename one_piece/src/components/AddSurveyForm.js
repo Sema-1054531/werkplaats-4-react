@@ -93,7 +93,7 @@ const AddSurveyForm = () => {
                     />
                     <div style={{ paddingTop: '100px' }}>
                         <button type="submit" className="btn btn-primary mt-3">Opslaan</button>
-                        <Link className="btn btn-secondary mt-3" to={"/surveys/bouw"}>Ga naar all enquêtes</Link>
+                        <Link className="btn btn-secondary mt-3" to={"/surveys/bouw"}>Terug</Link>
                         {message && <p>{message}</p>}
                     </div>
                 </div>

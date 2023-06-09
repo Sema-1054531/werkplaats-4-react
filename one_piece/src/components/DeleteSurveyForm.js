@@ -39,7 +39,7 @@ const DeleteSurveyForm = () => {
         <h4 className="my-4">Wil je de enquête <b>{survey_title}</b> verwijderen?</h4>
         {buttonVisible && (<button className="btn btn-primary" onClick={handleDeleteOnClick}>Verwijder</button>
         )}
-        <Link to={"/surveys/bouw"} className="btn btn-secondary">Ga terug</Link>
+        <Link to={"/surveys/bouw"} className="btn btn-secondary">Terug</Link>
         {message && <p>{message}</p>}
     </div>
     );

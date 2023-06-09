@@ -1,8 +1,7 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import AllSurveysInBuild from './AllSurveysInBuild';
+import {Link} from "react-router-dom";
+import React from "react";
 
-const Header = () => {
+const Navbar = () => {
     return (
         <header>
             <nav className="navbar navbar-expand-lg navbar-light bg-light">
@@ -19,6 +18,9 @@ const Header = () => {
                     <li className="nav-item">
                       <Link className="nav-link" to="/questions">Bouw vragen</Link>
                     </li>
+                    <li className="nav-item">
+                      <Link className="nav-link" to="/">Uitloggen</Link>
+                    </li>
                   </ul>
                 </div>
               </div>
@@ -27,28 +29,5 @@ const Header = () => {
     );
 };
 
-const SurveysInBuild = () => {
-  return (
-      <div>
-          <Header />
-          <div className="container">
-            <main>
-                <div className="row">
-                    <div className="col">
-                        <AllSurveysInBuild />
-                    </div>
-                </div>
-                <div className="row">
-                    <div className="col">
-                        <Link to={"/surveys/bouw/new"} className="btn btn-primary">Nieuwe enquêtte</Link>
-                        <Link to={"/questions/new"} className="btn btn-secondary">Nieuwe vraag</Link>
-                    </div>
-                </div>
-            </main>
-        </div>
 
-      </div>
-  );
-};
-
-export default SurveysInBuild;
+export default Navbar;

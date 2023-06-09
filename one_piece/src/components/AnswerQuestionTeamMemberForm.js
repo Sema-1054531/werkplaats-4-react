@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useLocation, useParams } from 'react-router-dom';
+import {Link, useLocation, useParams} from 'react-router-dom';
 
 const AnswerQuestionTeamMember = () => {
   const [answer_text, setAnswer_text] = useState('');
@@ -139,6 +139,7 @@ const AnswerQuestionTeamMember = () => {
                 {message && <p>{message}</p>}
                 {isAnswerEmpty && <p>Vul eerst nog een antwoord in.</p>}
             </div>
+            <Link className="btn btn-secondary mt-3" to={"/surveys"}>Terug naar surveys</Link>
         </form>
     </div>
   );
