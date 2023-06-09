@@ -7,6 +7,7 @@ const AddSurveyForm = () => {
     const [survey_description, set_survey_description] = useState('');
     const [is_anonymous, set_is_anonymous] = useState('');
     const [is_done, set_is_done] = useState();
+    const [date, set_date] = useState();
     const [message, setMessage] = useState('');
 
     const handleSurveySubmit = async (e) => {
@@ -22,7 +23,8 @@ const AddSurveyForm = () => {
             const response = await axios.post('http://localhost:5000/surveys/new', {
                 survey_title,
                 survey_description,
-                is_anonymous
+                is_anonymous,
+                date
             });
 
             // Succesvol aangemaakt
@@ -73,6 +75,15 @@ const AddSurveyForm = () => {
                                 value={is_anonymous === 0 ? 0 : 1}
                             />
                             <label className="form-check-label" htmlFor="is_not_anonymous">Nee</label>
+                        </div>
+                        <div className="form-group">
+                            <input
+                                type="hidden"
+                                className="form-control"
+                                id="date"
+                                value={date}
+                                onChange={(e) => set_date(e.target.value)}
+                            />
                         </div>
                     </div>
                     <input
