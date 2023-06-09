@@ -25,6 +25,7 @@ Om de server af te sluiten:
 # Inloggen
 Hierin kun je inloggegevens invullen en nieuwe accounts aanmaken.
 (Wegens een defect kun je niet inloggen. Je kunt verder als je '/home' aan de URL toevoegt.)
+En om de antwoorden te zien moet je verder als /admin en kan je de antwoorden bekijken en zien van wie etc.
 
 # Navigatiebar
 Na het inloggen word je doorverwezen naar de homepage.
