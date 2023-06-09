@@ -34,7 +34,7 @@ const SaveSurvey = () => {
 
   const handleSaveSurveyOnClick= () => {
     handleSaveSurvey();
-    //navigate('/surveys')
+    // navigate('/surveys')
   }
 
   const Header= () => {
@@ -66,7 +66,7 @@ const SaveSurvey = () => {
         <div className="container">
           <h4 className="my-4">Enquête opslaan: {survey_title}</h4>
           <p>{message}</p>
-          <button className="btn btn-primary" onClick={handleSaveSurveyOnClick}>Sla op</button>
+          { buttonVisible && (<button className="btn btn-primary" onClick={handleSaveSurveyOnClick}>Sla op</button>)}
           <Link to={"/surveys"} className="btn btn-secondary">Ga terug</Link>
         </div>
       </div>

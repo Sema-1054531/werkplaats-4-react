@@ -172,10 +172,10 @@ router.get('/api/surveys/:survey_id', (req, res) => {
 
 // GET a specific survey from ID for deletion
 router.post('/api/surveys', (req, res) => {
-    const {survey_title, survey_description, is_anonymous} = req.body;
-    const query = 'INSERT INTO survey (survey_title, survey_description, is_anonymous) VALUES ( ?, ?, ?)';
+    const {survey_title, survey_description, is_anonymous, date} = req.body;
+    const query = 'INSERT INTO survey (survey_title, survey_description, is_anonymous, date) VALUES ( ?, ?, ?, ?)';
 
-    db.run(query, [survey_title, survey_description, is_anonymous], (err) => {
+    db.run(query, [survey_title, survey_description, is_anonymous, date], (err) => {
         if (err) {
             console.error(err);
             res.status(500).send('Er is een fout opgetreden bij het ophalen van de enquête.');

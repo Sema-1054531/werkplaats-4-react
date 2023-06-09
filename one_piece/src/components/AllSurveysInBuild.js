@@ -29,6 +29,7 @@ const AllSurveysInBuild = () => {
                     <th>Title</th>
                     <th>Description</th>
                     <th>Is anoniem</th>
+                    <th>Datum</th>
                     <th></th>
                 </tr>
                 </thead>
@@ -38,6 +39,7 @@ const AllSurveysInBuild = () => {
                         <td>{survey.survey_title}</td>
                         <td>{survey.survey_description}</td>
                         <td>{survey.is_anonymous ? "Ja" : "Nee"}</td>
+                        <td>{survey.date}</td>
                         <td><Link className="btn btn-secondary" to={`/surveys/bouw/${survey.survey_id}/add_question?survey_id=${encodeURIComponent(survey.survey_id)}&title=${encodeURIComponent(survey.survey_title)}`}>Vragen toevoegen</Link></td>
                         <td><Link className="btn btn-primary" to={`/surveys/bouw/${survey.survey_id}/save?survey_id=${encodeURIComponent(survey.survey_id)}&title=${encodeURIComponent(survey.survey_title)}`}>Opslaan</Link></td>
                         <td><Link className="btn btn-danger" to={`/surveys/bouw/${survey.survey_id}/delete?title=${encodeURIComponent(survey.survey_title)}`}>Verwijder</Link></td>
