@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, {useEffect, useState} from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import {Link} from "react-router-dom";
 
 const AllSurveys = () => {
   const [surveys, setSurveys] = useState([]);
@@ -13,7 +13,8 @@ const AllSurveys = () => {
     try {
       const response = await axios.get("http://localhost:5000/surveys");
       setSurveys(response.data);
-    } catch (error) {
+    }
+      catch (error) {
       console.error(error);
     }
   };

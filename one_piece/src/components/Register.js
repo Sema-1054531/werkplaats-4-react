@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import axios from 'axios';
 import {Link} from "react-router-dom";
 
@@ -6,7 +6,7 @@ const Register = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [is_admin, set_is_admin] = useState('0') // default value of 0 (is not admin)
-  const [message, setMessage ] = useState('')
+  const [message, setMessage] = useState('')
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -28,7 +28,8 @@ const Register = () => {
       // Succesvol aangemaakt
       setMessage('Je nieuwe account is aangemaakt. Je kan nu inloggen.')
       console.log(response.data);
-    } catch (error) {
+    }
+      catch (error) {
       // Fout bij het maken van de gebruiker
       setMessage('Er ging iets mis met het registreren.')
       console.error(error);

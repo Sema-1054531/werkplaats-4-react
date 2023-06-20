@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, {useState, useEffect} from 'react';
 import axios from 'axios';
 import {Link, useLocation, useParams} from 'react-router-dom';
 
@@ -15,8 +15,8 @@ const AnswerQuestionTeamMember = () => {
   const question_text = searchParams.get('question_text');
   const question_type = searchParams.get('question_type');
 
-  const { question_id  } = useParams();
-  const { survey_id  } = useParams();
+  const {question_id } = useParams();
+  const {survey_id } = useParams();
 
   useEffect(() => {
       // GET is_anonymous from survey
@@ -24,7 +24,8 @@ const AnswerQuestionTeamMember = () => {
           try {
               const response = await axios.get(`http://localhost:5000/api/surveys/${survey_id}`);
               setIs_anonymous(response.data.is_anonymous);
-          } catch (error) {
+          }
+            catch (error) {
               console.error(error);
           }
       };
@@ -51,7 +52,8 @@ const AnswerQuestionTeamMember = () => {
             // Succesvol aangemaakt
             setMessage('Vraag is beantwoord');
             console.log(response.data);
-        } catch (error) {
+        }
+          catch (error) {
             // Fout bij het maken van de survey
             setMessage('Er ging iets mis met het beantwoorden van de vraag')
             console.error(error);
@@ -71,7 +73,8 @@ const AnswerQuestionTeamMember = () => {
                   placeholder="Type je antwoord in..."
                 />
             );
-        } else if (question_type === 'meerkeuzevraag') {
+        }
+          else if (question_type === 'meerkeuzevraag') {
             return (
                 <div>
                     <p>beoordeel je ervaring op een schaal van 1 tot 10, waarbij 1 staat voor zeer ontevreden en 10 voor extreem tevreden.</p>
@@ -95,7 +98,8 @@ const AnswerQuestionTeamMember = () => {
                     </div>
                 </div>
             );
-        } else {
+        }
+          else {
             return null;
         }
     };
@@ -103,7 +107,8 @@ const AnswerQuestionTeamMember = () => {
     const renderAnonymous = () => {
         if (is_anonymous === 1){
             return <p>Deze enquete is anoniem</p>
-        } else if (is_anonymous === 0){
+        }
+          else if (is_anonymous === 0){
             return (
                 <input
                     type="text" // tijdelijk niet hidden!!
@@ -112,7 +117,8 @@ const AnswerQuestionTeamMember = () => {
                     placeholder="user_id"
                 />
             );
-        } else {
+        }
+          else {
             return null;
         }
     }

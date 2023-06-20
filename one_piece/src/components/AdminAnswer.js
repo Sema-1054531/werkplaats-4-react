@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, {useEffect, useState} from "react";
 import axios from "axios";
-import { useParams, Link } from "react-router-dom";
+import {useParams, Link} from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 const Header = () => {
@@ -29,7 +29,7 @@ const Header = () => {
 };
 
 const AdminAnswer = () => {
-  const { survey_id, question_id } = useParams();
+  const {survey_id, question_id} = useParams();
 
   const [surveyQuestions, setSurveyQuestions] = useState([]);
 

@@ -1,6 +1,6 @@
-import React, { useRef, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { Toast } from "bootstrap";
+import React, {useRef, useState} from "react";
+import {Link, useNavigate} from "react-router-dom";
+import {Toast} from "bootstrap";
 
 const LoginForm = () => {
   const [email, setEmail] = useState("");
@@ -21,11 +21,13 @@ const LoginForm = () => {
           console.log(resp);
           if (Object.keys(resp).length === 0) {
             showWarningToast("Vul alsjeblieft een geldige e-mail in.");
-          } else {
+          }
+            else {
             if (resp.password === password) {
               showWarningToast.success("Success");
               navigate("/surveys");
-            } else {
+            }
+              else {
               showWarningToast("Vul alsjeblieft een geldige wachtwoord in.");
             }
           }

@@ -13,7 +13,8 @@ const AllSurveysInBuild = () => {
         try {
             const response = await axios.get('http://localhost:5000/surveys');
             setSurveys(response.data);
-        } catch (error) {
+        }
+          catch (error) {
             console.error(error);
         }
     };

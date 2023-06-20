@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, {useEffect, useState} from "react";
 import axios from "axios";
 import {Link, useParams} from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -29,7 +29,7 @@ const Header = () => {
 };
 
 const SurveyQuestionAdmin = () => {
-  const { survey_id } = useParams();
+  const {survey_id} = useParams();
 
   const [surveyQuestions, setSurveyQuestions] = useState([]);
 
@@ -50,7 +50,8 @@ const SurveyQuestionAdmin = () => {
       });
       const resolvedQuestions = await Promise.all(questions);
       setSurveyQuestions(resolvedQuestions);
-    } catch (error) {
+    }
+      catch (error) {
       console.error(error);
     }
   };

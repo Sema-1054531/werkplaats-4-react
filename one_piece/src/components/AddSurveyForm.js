@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import axios from 'axios';
 import {Link} from "react-router-dom";
 
@@ -30,7 +30,8 @@ const AddSurveyForm = () => {
             // Succesvol aangemaakt
             setMessage('Enguêtte is aangemaakt');
             console.log(response.data);
-        } catch (error) {
+        }
+          catch (error) {
             // Fout bij het maken van de survey
             setMessage('Er ging iets mis met het toevoegen van een nieuwe enquêtte')
             console.error(error);

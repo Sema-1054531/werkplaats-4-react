@@ -21,7 +21,8 @@ const AddQuestionForm = () => {
       // Succesvol aangemaakt
       setMessage('Vraag is toegevoegd');
       console.log('Question added:', response.data);
-    } catch (error) {
+    }
+      catch (error) {
       // fout bij het maken van question
       setMessage('Er ging iets fout bij het toevoegen van een nieuwe vraag');
       console.error('Error adding question:', error);

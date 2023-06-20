@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, {useState} from "react";
 import {Link, useLocation, useNavigate} from "react-router-dom";
 import axios from "axios";
 
@@ -22,7 +22,8 @@ const SaveSurvey = () => {
     try {
       await axios.put(`http://localhost:5000/api/surveys/${survey_id}`, { is_done: true });
       setMessage("Enquête succesvol opgeslagen.");
-    } catch (error) {
+    }
+      catch (error) {
       console.error(error);
       setMessage("Er is een fout opgetreden bij het opslaan van de enquête.");
     }
