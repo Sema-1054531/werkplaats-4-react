@@ -1,6 +1,9 @@
 import React, {useRef, useState} from "react";
 import {Link, useNavigate} from "react-router-dom";
-import {Toast} from "bootstrap";
+import { Toast } from "bootstrap";
+
+import 'bootstrap/dist/css/bootstrap.min.css'; 
+
 
 const LoginForm = () => {
   const [email, setEmail] = useState("");
@@ -68,28 +71,28 @@ const LoginForm = () => {
     <div className="d-flex justify-content-center align-items-center vh-100">
       <div className="col-lg-6">
         <form onSubmit={ProceedLogin} className="container">
-          <div className="card">
-            <div className="card-header">
+          <div className="card bg-light">
+            <div className="card-header bg-primary text-white">
               <h2>Login</h2>
             </div>
             <div className="card-body">
               <div className="form-group">
-                <label>E-mail <span className="errmsg">*</span></label>
+                <label className="text-dark">E-mail <span className="errmsg">*</span></label>
                 <input
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   className="form-control"
-                ></input>
+                />
               </div>
               <div className="form-group">
-                <label>Wachtwoord <span className="errmsg">*</span></label>
+                <label className="text-dark">Wachtwoord <span className="errmsg">*</span></label>
                 <input
                   type="password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   className="form-control"
-                ></input>
+                />
               </div>
             </div>
             <div className="card-footer">
@@ -107,7 +110,6 @@ const LoginForm = () => {
         </div>
       </div>
     </div>
-  );
-};
+  );}
 
 export default LoginForm;
