@@ -31,7 +31,7 @@ const DeleteSurveyForm = () => {
     const handleDeleteOnClick = () => {
         DeletingSurvey(survey_id, setMessage, setButtonVisible);
         setMessage('Enquête succesvol verwijderd.');
-        navigate('/surveys')
+        navigate('/admin')
     };
 
     return (
